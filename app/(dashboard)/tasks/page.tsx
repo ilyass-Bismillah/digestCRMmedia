@@ -117,7 +117,7 @@ export default function TasksPage() {
               onClick={() => setViewMode('calendar')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
                 viewMode === 'calendar'
-                  ? 'bg-white text-[#C02586] shadow-xs'
+                  ? 'bg-white text-berry shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -129,7 +129,7 @@ export default function TasksPage() {
               onClick={() => setViewMode('list')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
                 viewMode === 'list'
-                  ? 'bg-white text-[#C02586] shadow-xs'
+                  ? 'bg-white text-berry shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -149,7 +149,7 @@ export default function TasksPage() {
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
           >
             <Plus className="h-4 w-4 stroke-[2.5]" />
             <span>+ Add Task</span>
@@ -166,7 +166,7 @@ export default function TasksPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search task title or client..."
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-berry transition-all"
           />
         </div>
 
@@ -179,7 +179,7 @@ export default function TasksPage() {
               onClick={() => setStatusFilter(status)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all whitespace-nowrap ${
                 statusFilter === status
-                  ? 'bg-[#C02586] text-white shadow-xs'
+                  ? 'bg-berry text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -197,7 +197,7 @@ export default function TasksPage() {
       {showEmptyStatePreview || filteredTasks.length === 0 ? (
         /* Empty State matching Figma Board 3 */
         <div className="rounded-2xl bg-white p-12 text-center border border-slate-200/80 shadow-xs">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-berry/10 text-berry ring-8 ring-berry/5">
             <CheckSquare className="h-10 w-10" />
           </div>
           <h3 className="mt-4 text-base font-bold text-slate-900">
@@ -209,14 +209,13 @@ export default function TasksPage() {
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
+            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>+ Add Task</span>
           </button>
         </div>
       ) : viewMode === 'calendar' ? (
-        /* Calendar / Board View matching Figma Board 3 */
         <div className="space-y-4">
           <div className="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -238,7 +237,7 @@ export default function TasksPage() {
               <div
                 key={task.id}
                 onClick={() => setSelectedTask(task)}
-                className="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs hover:shadow-md hover:border-[#C02586]/40 transition-all cursor-pointer flex flex-col justify-between"
+                className="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs hover:shadow-md hover:border-berry/40 transition-all cursor-pointer flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -266,10 +265,10 @@ export default function TasksPage() {
 
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
-                    <div className="h-6 w-6 rounded-full bg-[#C02586] text-white flex items-center justify-center text-[10px] font-bold">
+                    <div className="h-6 w-6 rounded-full bg-berry text-white flex items-center justify-center text-[10px] font-bold">
                       {task.assignee?.name ? task.assignee.name[0] : 'S'}
                     </div>
-                    <span className="text-[11px] text-slate-600 font-medium truncate max-w-[100px]">
+                    <span className="text-[11px] text-slate-600 font-medium truncate max-w-25">
                       {task.assignee?.name || 'Samantha'}
                     </span>
                   </div>
@@ -318,8 +317,8 @@ export default function TasksPage() {
                           onClick={() => toggleTaskCompletion(task.id)}
                           className={`flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-md border transition-colors ${
                             task.completed
-                              ? 'bg-[#C02586] border-[#C02586] text-white'
-                              : 'border-slate-300 hover:border-[#C02586]'
+                              ? 'bg-berry border-berry text-white'
+                              : 'border-slate-300 hover:border-berry'
                           }`}
                         >
                           {task.completed && <CheckCircle2 className="h-3.5 w-3.5" />}
@@ -371,7 +370,7 @@ export default function TasksPage() {
                         <button
                           type="button"
                           onClick={() => setSelectedTask(task)}
-                          className="p-1.5 text-slate-400 hover:text-[#C02586] rounded-lg hover:bg-slate-100 transition-colors"
+                          className="p-1.5 text-slate-400 hover:text-berry rounded-lg hover:bg-slate-100 transition-colors"
                           title="View details"
                         >
                           <Eye className="h-4 w-4" />
@@ -420,7 +419,7 @@ export default function TasksPage() {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Edit TikTok Reel hook variations"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -431,7 +430,7 @@ export default function TasksPage() {
                 <select
                   value={newClient}
                   onChange={(e) => setNewClient(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                 >
                   {clients.map((c) => (
                     <option key={c.id} value={c.name}>
@@ -449,7 +448,7 @@ export default function TasksPage() {
                   <select
                     value={newPriority}
                     onChange={(e) => setNewPriority(e.target.value as any)}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                   >
                     <option value="high">High Priority</option>
                     <option value="medium">Medium</option>
@@ -464,7 +463,7 @@ export default function TasksPage() {
                   <select
                     value={newStatus}
                     onChange={(e) => setNewStatus(e.target.value as any)}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                   >
                     <option value="pending">To Do / Pending</option>
                     <option value="in_progress">In Progress</option>
@@ -483,7 +482,7 @@ export default function TasksPage() {
                   value={newDueDate}
                   onChange={(e) => setNewDueDate(e.target.value)}
                   placeholder="e.g. Apr 15, 2024"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -496,7 +495,7 @@ export default function TasksPage() {
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
                   placeholder="Task instructions, video format, or script notes..."
-                  className="w-full p-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full p-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -510,7 +509,7 @@ export default function TasksPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs cursor-pointer"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs cursor-pointer"
                 >
                   Save Task
                 </button>
@@ -526,7 +525,7 @@ export default function TasksPage() {
           <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 animate-in zoom-in-95 duration-150">
             <div className="flex items-start justify-between pb-4 border-b border-slate-100">
               <div>
-                <span className="text-[10px] font-bold text-[#C02586] uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-berry uppercase tracking-wider">
                   Task Details
                 </span>
                 <h3 className="text-base font-bold text-slate-900 mt-0.5">{selectedTask.title}</h3>
@@ -585,7 +584,7 @@ export default function TasksPage() {
               <button
                 type="button"
                 onClick={() => setSelectedTask(null)}
-                className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
               >
                 Close
               </button>

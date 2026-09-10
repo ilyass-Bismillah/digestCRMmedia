@@ -201,7 +201,7 @@ export default function AccountsPage() {
           <button
             type="button"
             onClick={() => setIsAddAccountModalOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
           >
             <Plus className="h-4 w-4 stroke-[2.5]" />
             <span>+ Add Account</span>
@@ -218,7 +218,7 @@ export default function AccountsPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search account name or ID..."
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-berry transition-all"
           />
         </div>
 
@@ -231,7 +231,7 @@ export default function AccountsPage() {
               onClick={() => setPlatformFilter(plt)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                 platformFilter === plt
-                  ? 'bg-[#C02586] text-white shadow-xs'
+                  ? 'bg-berry text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -245,7 +245,7 @@ export default function AccountsPage() {
       {showEmptyStatePreview || filteredAccounts.length === 0 ? (
         /* Empty State matching Figma Board 2 */
         <div className="rounded-2xl bg-white p-12 text-center border border-slate-200/80 shadow-xs">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-berry/10 text-berry ring-8 ring-berry/5">
             <Share2 className="h-10 w-10" />
           </div>
           <h3 className="mt-4 text-base font-bold text-slate-900">
@@ -257,7 +257,7 @@ export default function AccountsPage() {
           <button
             type="button"
             onClick={() => setIsAddAccountModalOpen(true)}
-            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
+            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>+ Add Account</span>
@@ -315,7 +315,7 @@ export default function AccountsPage() {
                         <button
                           type="button"
                           onClick={() => setTopupAccount(acc)}
-                          className="px-2.5 py-1.5 rounded-lg bg-[#C02586]/10 hover:bg-[#C02586]/20 text-[#C02586] font-semibold text-[11px] transition-colors"
+                          className="px-2.5 py-1.5 rounded-lg bg-berry/10 hover:bg-berry/20 text-berry font-semibold text-[11px] transition-colors"
                         >
                           + Topup
                         </button>
@@ -363,7 +363,7 @@ export default function AccountsPage() {
                   value={newAccName}
                   onChange={(e) => setNewAccName(e.target.value)}
                   placeholder="e.g. Brand X - Winter Conversions"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -374,7 +374,7 @@ export default function AccountsPage() {
                 <select
                   value={newAccPlatform}
                   onChange={(e) => setNewAccPlatform(e.target.value as any)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                 >
                   <option value="Meta Ads">Meta Ads (Facebook & Instagram)</option>
                   <option value="Google Ads">Google Ads (Search & YouTube)</option>
@@ -390,7 +390,7 @@ export default function AccountsPage() {
                 <select
                   value={newAccClient}
                   onChange={(e) => setNewAccClient(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                 >
                   {clients.map((c) => (
                     <option key={c.id} value={c.name}>
@@ -410,7 +410,7 @@ export default function AccountsPage() {
                   value={newAccId}
                   onChange={(e) => setNewAccId(e.target.value)}
                   placeholder="e.g. ACT-84920-META"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -423,7 +423,7 @@ export default function AccountsPage() {
                   value={newAccBalance}
                   onChange={(e) => setNewAccBalance(Number(e.target.value))}
                   placeholder="5000"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -437,7 +437,7 @@ export default function AccountsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
                 >
                   Save Account
                 </button>
@@ -478,7 +478,7 @@ export default function AccountsPage() {
                     required
                     value={topupAmount}
                     onChange={(e) => setTopupAmount(e.target.value)}
-                    className="w-full pl-9 pr-3.5 py-2 text-sm font-bold text-slate-900 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                    className="w-full pl-9 pr-3.5 py-2 text-sm font-bold text-slate-900 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
               </div>
@@ -490,7 +490,7 @@ export default function AccountsPage() {
                 <select
                   value={topupMethod}
                   onChange={(e) => setTopupMethod(e.target.value)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                 >
                   <option value="Bank Transfer">Bank Transfer (ACH / Wire)</option>
                   <option value="Credit Card">Corporate Credit Card (Stripe)</option>
@@ -503,7 +503,7 @@ export default function AccountsPage() {
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Payment Receipt / Slip (Optional)
                 </label>
-                <div className="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-[#C02586]/50 transition-colors cursor-pointer bg-slate-50/50">
+                <div className="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-berry/50 transition-colors cursor-pointer bg-slate-50/50">
                   <Upload className="h-6 w-6 text-slate-400 mx-auto" />
                   <p className="text-xs font-semibold text-slate-700 mt-1">Upload wire receipt</p>
                   <p className="text-[10px] text-slate-400">PDF, PNG or JPG up to 10MB</p>
@@ -520,7 +520,7 @@ export default function AccountsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
                 >
                   Submit Topup
                 </button>
@@ -574,7 +574,7 @@ export default function AccountsPage() {
                 value={newNoteText}
                 onChange={(e) => setNewNoteText(e.target.value)}
                 placeholder="Type note regarding spend limit, creative feedback, or strategy..."
-                className="w-full p-3 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                className="w-full p-3 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
               />
               <div className="flex justify-end gap-2">
                 <button
@@ -586,7 +586,7 @@ export default function AccountsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
                 >
                   Save Note
                 </button>

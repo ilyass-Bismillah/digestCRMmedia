@@ -126,7 +126,7 @@ export default function SettingsPage() {
           onClick={() => setActiveTab('personal')}
           className={`pb-3 text-sm font-semibold transition-all border-b-2 ${
             activeTab === 'personal'
-              ? 'border-[#C02586] text-[#C02586]'
+              ? 'border-berry text-berry'
               : 'border-transparent text-slate-500 hover:text-slate-800'
           }`}
         >
@@ -137,7 +137,7 @@ export default function SettingsPage() {
           onClick={() => setActiveTab('password')}
           className={`pb-3 text-sm font-semibold transition-all border-b-2 ${
             activeTab === 'password'
-              ? 'border-[#C02586] text-[#C02586]'
+              ? 'border-berry text-berry'
               : 'border-transparent text-slate-500 hover:text-slate-800'
           }`}
         >
@@ -155,10 +155,10 @@ export default function SettingsPage() {
                   <img
                     src={avatarUrl}
                     alt="Avatar"
-                    className="h-20 w-20 rounded-full object-cover ring-4 ring-[#C02586]/15"
+                    className="h-20 w-20 rounded-full object-cover ring-4 ring-berry/15"
                   />
                 ) : (
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#C02586] text-white font-black text-2xl shadow-md ring-4 ring-[#C02586]/15">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-berry text-white font-black text-2xl shadow-md ring-4 ring-berry/15">
                     {firstName[0]}{lastName[0]}
                   </div>
                 )}
@@ -172,7 +172,7 @@ export default function SettingsPage() {
                 <button
                   type="button"
                   onClick={() => avatarInputRef.current?.click()}
-                  className="absolute bottom-0 right-0 p-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shadow-sm hover:text-[#C02586] transition-colors"
+                  className="absolute bottom-0 right-0 p-1.5 rounded-full bg-white text-slate-700 border border-slate-200 shadow-sm hover:text-berry transition-colors"
                   title="Change avatar (Cloudflare R2)"
                 >
                   <Camera className="h-3.5 w-3.5" />
@@ -183,7 +183,7 @@ export default function SettingsPage() {
                   {firstName} {lastName}
                 </h3>
                 <p className="text-xs text-slate-500">{position}</p>
-                <span className="mt-1 inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C02586]/10 text-[#C02586]">
+                <span className="mt-1 inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-berry/10 text-berry">
                   {user?.role === 'admin' ? 'Administrator' : 'Client User'}
                 </span>
               </div>
@@ -195,7 +195,7 @@ export default function SettingsPage() {
                 onClick={() => setIsEditing(true)}
                 className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-all"
               >
-                <Edit2 className="h-3.5 w-3.5 text-[#C02586]" />
+                <Edit2 className="h-3.5 w-3.5 text-berry" />
                 <span>Edit Details</span>
               </button>
             )}
@@ -212,7 +212,7 @@ export default function SettingsPage() {
                   disabled={!isEditing}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
 
@@ -225,7 +225,7 @@ export default function SettingsPage() {
                   disabled={!isEditing}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -241,7 +241,7 @@ export default function SettingsPage() {
                   disabled={!isEditing}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -257,7 +257,7 @@ export default function SettingsPage() {
                   disabled={!isEditing}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -273,7 +273,7 @@ export default function SettingsPage() {
                   disabled={!isEditing}
                   value={position}
                   onChange={(e) => setPosition(e.target.value)}
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 disabled:bg-slate-50 disabled:text-slate-700 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -282,7 +282,7 @@ export default function SettingsPage() {
               <div className="flex items-center gap-3 pt-4">
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white text-xs font-semibold shadow-sm transition-all"
+                  className="px-5 py-2.5 rounded-xl bg-berry hover:bg-[#A01E6F] text-white text-xs font-semibold shadow-sm transition-all"
                 >
                   Save Changes
                 </button>
@@ -329,7 +329,7 @@ export default function SettingsPage() {
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -346,7 +346,7 @@ export default function SettingsPage() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -363,14 +363,14 @@ export default function SettingsPage() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="mt-2 px-5 py-2.5 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white text-xs font-semibold shadow-sm transition-all"
+              className="mt-2 px-5 py-2.5 rounded-xl bg-berry hover:bg-[#A01E6F] text-white text-xs font-semibold shadow-sm transition-all"
             >
               Change Password
             </button>

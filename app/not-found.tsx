@@ -17,7 +17,7 @@ export default function NotFound() {
           <div className="pt-2">
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#C02586] hover:bg-[#A81F74] text-white text-sm font-medium shadow-sm hover:shadow transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-berry hover:bg-[#A81F74] text-white text-sm font-medium shadow-sm hover:shadow transition-all duration-200"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to home</span>

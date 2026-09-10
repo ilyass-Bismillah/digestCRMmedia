@@ -119,7 +119,7 @@ export default function ClientsPage() {
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
           >
             <Plus className="h-4 w-4 stroke-[2.5]" />
             <span>+ Add Client</span>
@@ -136,7 +136,7 @@ export default function ClientsPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search client..."
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-berry transition-all"
           />
         </div>
 
@@ -149,7 +149,7 @@ export default function ClientsPage() {
               onClick={() => setStatusFilter(filter)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all ${
                 statusFilter === filter
-                  ? 'bg-[#C02586] text-white shadow-xs'
+                  ? 'bg-berry text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -163,7 +163,7 @@ export default function ClientsPage() {
       {showEmptyStatePreview || filteredClients.length === 0 ? (
         /* Empty State matching Figma Board 2 */
         <div className="rounded-2xl bg-white p-12 text-center border border-slate-200/80 shadow-xs">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-berry/10 text-berry ring-8 ring-berry/5">
             <Users className="h-10 w-10" />
           </div>
           <h3 className="mt-4 text-base font-bold text-slate-900">
@@ -175,7 +175,7 @@ export default function ClientsPage() {
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-sm transition-all"
+            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-sm transition-all"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>+ Add Client</span>
@@ -232,8 +232,8 @@ export default function ClientsPage() {
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Active
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-pink-50 text-[#C02586] border border-pink-200">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#C02586]" /> Inactive
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-pink-50 text-berry border border-pink-200">
+                            <span className="h-1.5 w-1.5 rounded-full bg-berry" /> Inactive
                           </span>
                         )}
                       </td>
@@ -242,7 +242,7 @@ export default function ClientsPage() {
                           <button
                             type="button"
                             onClick={() => setSelectedClient(client)}
-                            className="p-1.5 rounded-lg text-slate-400 hover:text-[#C02586] hover:bg-slate-100 transition-colors"
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-berry hover:bg-slate-100 transition-colors"
                             title="View client details"
                           >
                             <Eye className="h-4 w-4" />
@@ -300,7 +300,7 @@ export default function ClientsPage() {
                   value={newClientName}
                   onChange={(e) => setNewClientName(e.target.value)}
                   placeholder="e.g. Aura Global"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -314,7 +314,7 @@ export default function ClientsPage() {
                   value={newClientEmail}
                   onChange={(e) => setNewClientEmail(e.target.value)}
                   placeholder="contact@auraglobal.com"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -327,7 +327,7 @@ export default function ClientsPage() {
                   value={newClientCompany}
                   onChange={(e) => setNewClientCompany(e.target.value)}
                   placeholder="e.g. Aura Beauty Inc"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -340,7 +340,7 @@ export default function ClientsPage() {
                   value={newClientRetainer}
                   onChange={(e) => setNewClientRetainer(Number(e.target.value))}
                   placeholder="5000"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -354,7 +354,7 @@ export default function ClientsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
                 >
                   Save Client
                 </button>
@@ -373,7 +373,7 @@ export default function ClientsPage() {
                 <img
                   src={selectedClient.avatar}
                   alt={selectedClient.name}
-                  className="h-12 w-12 rounded-full object-cover ring-2 ring-[#C02586]/20"
+                  className="h-12 w-12 rounded-full object-cover ring-2 ring-berry/20"
                 />
                 <div>
                   <h3 className="text-base font-bold text-slate-900">{selectedClient.name}</h3>

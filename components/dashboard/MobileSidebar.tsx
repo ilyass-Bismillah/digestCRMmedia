@@ -60,11 +60,11 @@ export function MobileSidebar() {
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-slate-100">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 px-2 items-center justify-center rounded-lg bg-[#C02586] text-white font-black text-sm">
+              <div className="flex h-8 px-2 items-center justify-center rounded-lg bg-berry text-white font-black text-sm">
                 DM
               </div>
               <span className="font-bold text-slate-900 text-sm tracking-tight">
-                Digest <span className="text-[#C02586]">Media</span>
+                Digest <span className="text-berry">Media</span>
               </span>
             </div>
             <button
@@ -89,7 +89,7 @@ export function MobileSidebar() {
                   onClick={() => setMobileSidebarOpen(false)}
                   className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-[#C02586] text-white font-semibold shadow-xs'
+                      ? 'bg-berry text-white font-semibold shadow-xs'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
@@ -112,12 +112,12 @@ export function MobileSidebar() {
         <div className="rounded-2xl bg-slate-50 p-3.5 border border-slate-100 mt-6">
           <div className="flex items-center justify-between text-xs mb-1.5">
             <span className="font-semibold text-slate-700 flex items-center gap-1.5">
-              <HardDrive className="h-3.5 w-3.5 text-[#C02586]" /> Storage
+              <HardDrive className="h-3.5 w-3.5 text-berry" /> Storage
             </span>
             <span className="font-bold text-slate-800">78%</span>
           </div>
           <div className="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-[#C02586] to-rose-400 rounded-full w-[78%]" />
+            <div className="h-full bg-linear-to-r from-berry to-rose-400 rounded-full w-[78%]" />
           </div>
           <p className="text-[11px] text-slate-500 mt-1.5">780 GB of 1 TB used</p>
         </div>

@@ -66,7 +66,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#C02586] text-white shadow-sm transition-all">
+    <header className="sticky top-0 z-40 w-full bg-berry text-white shadow-sm transition-all">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left: Mobile Hamburger & Brand Logo */}
         <div className="flex items-center gap-3 md:gap-4">
@@ -80,7 +80,7 @@ export function Header() {
           </button>
 
           <Link href="/dashboard" className="flex items-center gap-2.5 group">
-            <div className="flex h-9 px-2.5 items-center justify-center rounded-lg bg-white text-[#C02586] font-black tracking-tight text-base shadow-xs group-hover:scale-105 transition-all">
+            <div className="flex h-9 px-2.5 items-center justify-center rounded-lg bg-white text-berry font-black tracking-tight text-base shadow-xs group-hover:scale-105 transition-all">
               DM
             </div>
             <div className="flex flex-col">
@@ -125,7 +125,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setQuickActionOpen(!quickActionOpen)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white text-[#C02586] font-semibold text-xs sm:text-sm hover:bg-white/95 shadow-sm transition-all active:scale-95"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white text-berry font-semibold text-xs sm:text-sm hover:bg-white/95 shadow-sm transition-all active:scale-95"
             >
               <Plus className="h-4 w-4 stroke-[2.5]" />
               <span className="hidden sm:inline">New Action</span>
@@ -143,9 +143,9 @@ export function Header() {
                     setQuickActionOpen(false);
                     setActiveModal('add_client');
                   }}
-                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-[#C02586]/10 hover:text-[#C02586] text-slate-700 text-left transition-colors font-medium"
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-berry/10 hover:text-berry text-slate-700 text-left transition-colors font-medium"
                 >
-                  <UserPlus className="h-4 w-4 text-[#C02586]" />
+                  <UserPlus className="h-4 w-4 text-berry" />
                   Add New Client
                 </button>
                 <button
@@ -154,7 +154,7 @@ export function Header() {
                     setQuickActionOpen(false);
                     setActiveModal('add_task');
                   }}
-                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-[#C02586]/10 hover:text-[#C02586] text-slate-700 text-left transition-colors font-medium"
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-berry/10 hover:text-berry text-slate-700 text-left transition-colors font-medium"
                 >
                   <CheckSquare className="h-4 w-4 text-emerald-600" />
                   Create Task
@@ -165,7 +165,7 @@ export function Header() {
                     setQuickActionOpen(false);
                     setActiveModal('add_ticket');
                   }}
-                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-[#C02586]/10 hover:text-[#C02586] text-slate-700 text-left transition-colors font-medium"
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-berry/10 hover:text-berry text-slate-700 text-left transition-colors font-medium"
                 >
                   <LifeBuoy className="h-4 w-4 text-amber-600" />
                   Open Support Ticket
@@ -177,9 +177,9 @@ export function Header() {
                     setQuickActionOpen(false);
                     setActiveModal('request_payout');
                   }}
-                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-[#C02586]/10 hover:text-[#C02586] text-slate-700 text-left transition-colors font-medium"
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-berry/10 hover:text-berry text-slate-700 text-left transition-colors font-medium"
                 >
-                  <CreditCard className="h-4 w-4 text-[#C02586]" />
+                  <CreditCard className="h-4 w-4 text-berry" />
                   Request Balance Payout
                 </button>
               </div>
@@ -196,7 +196,7 @@ export function Header() {
             >
               <Bell className="h-4 w-4" />
               {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white shadow-sm ring-2 ring-[#C02586]">
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-500 px-1 text-[10px] font-bold text-white shadow-sm ring-2 ring-berry">
                   {unreadCount}
                 </span>
               )}
@@ -208,7 +208,7 @@ export function Header() {
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-900 text-sm">Notifications</span>
                     {unreadCount > 0 && (
-                      <span className="rounded-full bg-[#C02586]/10 text-[#C02586] px-2 py-0.5 text-xs font-semibold">
+                      <span className="rounded-full bg-berry/10 text-berry px-2 py-0.5 text-xs font-semibold">
                         {unreadCount} new
                       </span>
                     )}
@@ -217,7 +217,7 @@ export function Header() {
                     <button
                       type="button"
                       onClick={() => markAllNotificationsAsRead()}
-                      className="text-xs font-medium text-[#C02586] hover:underline flex items-center gap-1"
+                      className="text-xs font-medium text-berry hover:underline flex items-center gap-1"
                     >
                       <Check className="h-3 w-3" /> Mark all read
                     </button>
@@ -231,7 +231,7 @@ export function Header() {
                     onClick={() => setNotifTab('all')}
                     className={`pb-2 transition-colors border-b-2 ${
                       notifTab === 'all'
-                        ? 'border-[#C02586] text-[#C02586]'
+                        ? 'border-berry text-berry'
                         : 'border-transparent text-slate-400 hover:text-slate-600'
                     }`}
                   >
@@ -242,7 +242,7 @@ export function Header() {
                     onClick={() => setNotifTab('unread')}
                     className={`pb-2 transition-colors border-b-2 ${
                       notifTab === 'unread'
-                        ? 'border-[#C02586] text-[#C02586]'
+                        ? 'border-berry text-berry'
                         : 'border-transparent text-slate-400 hover:text-slate-600'
                     }`}
                   >
@@ -267,7 +267,7 @@ export function Header() {
                           }
                         }}
                         className={`p-3.5 hover:bg-slate-50 transition-colors cursor-pointer flex gap-3 ${
-                          notif.unread ? 'bg-[#C02586]/5' : ''
+                          notif.unread ? 'bg-berry/5' : ''
                         }`}
                       >
                         <div
@@ -278,7 +278,7 @@ export function Header() {
                               ? 'bg-blue-500'
                               : notif.title.toLowerCase().includes('ticket')
                               ? 'bg-amber-500'
-                              : 'bg-[#C02586]'
+                              : 'bg-berry'
                           }`}
                         />
                         <div className="flex-1 min-w-0">
@@ -299,7 +299,7 @@ export function Header() {
                   <Link
                     href="/notifications"
                     onClick={() => setNotifOpen(false)}
-                    className="text-xs font-semibold text-[#C02586] hover:underline flex items-center justify-center gap-1"
+                    className="text-xs font-semibold text-berry hover:underline flex items-center justify-center gap-1"
                   >
                     View notification center <ExternalLink className="h-3 w-3" />
                   </Link>
@@ -384,13 +384,13 @@ export function Header() {
                         switchRole('admin');
                         setProfileOpen(false);
                       }}
-                      className="w-full flex items-center justify-between p-2 rounded-xl bg-[#C02586]/10 hover:bg-[#C02586]/20 text-[#C02586] border border-[#C02586]/20 text-xs font-semibold shadow-xs transition-colors"
+                      className="w-full flex items-center justify-between p-2 rounded-xl bg-berry/10 hover:bg-berry/20 text-berry border border-berry/20 text-xs font-semibold shadow-xs transition-colors"
                     >
                       <div className="flex items-center gap-1.5">
-                        <ShieldCheck className="h-3.5 w-3.5 text-[#C02586]" />
+                        <ShieldCheck className="h-3.5 w-3.5 text-berry" />
                         <span>Switch to Admin</span>
                       </div>
-                      <span className="text-[10px] font-bold text-[#C02586]">Full Access</span>
+                      <span className="text-[10px] font-bold text-berry">Full Access</span>
                     </button>
                   )}
                 </div>
@@ -399,14 +399,14 @@ export function Header() {
                   <Link
                     href="/settings"
                     onClick={() => setProfileOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-[#C02586] transition-colors"
+                    className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-berry transition-colors"
                   >
                     <User className="h-4 w-4" /> My Profile
                   </Link>
                   <Link
                     href="/settings"
                     onClick={() => setProfileOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-[#C02586] transition-colors"
+                    className="flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 hover:text-berry transition-colors"
                   >
                     <Settings className="h-4 w-4" /> Agency Settings
                   </Link>

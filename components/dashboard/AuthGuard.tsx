@@ -35,7 +35,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-slate-50">
         <div className="flex flex-col items-center gap-3">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#C02586]/20 border-t-[#C02586]" />
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-berry/20 border-t-berry" />
           <p className="text-xs font-semibold text-slate-500 tracking-wide">
             Authenticating session...
           </p>
@@ -93,7 +93,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
             <button
               type="button"
               onClick={() => switchRole('admin')}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white text-xs font-semibold shadow-sm transition-all active:scale-95"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-berry hover:bg-[#A01E6F] text-white text-xs font-semibold shadow-sm transition-all active:scale-95"
             >
               <ShieldCheck className="h-4 w-4" />
               <span>Switch to Admin (Demo Toggle)</span>

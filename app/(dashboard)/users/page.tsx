@@ -160,7 +160,7 @@ export default function UsersPage() {
           <button
             type="button"
             onClick={() => setIsAddUserModalOpen(true)}
-            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
           >
             <Plus className="h-4 w-4 stroke-[2.5]" />
             <span>+ Add User</span>
@@ -177,7 +177,7 @@ export default function UsersPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search user name or email..."
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-berry transition-all"
           />
         </div>
 
@@ -190,7 +190,7 @@ export default function UsersPage() {
               onClick={() => setRoleFilter(r)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                 roleFilter.toLowerCase() === r.toLowerCase()
-                  ? 'bg-[#C02586] text-white shadow-xs'
+                  ? 'bg-berry text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -204,7 +204,7 @@ export default function UsersPage() {
       {showEmptyStatePreview || filteredUsers.length === 0 ? (
         /* Empty State matching Figma Board 2 */
         <div className="rounded-2xl bg-white p-12 text-center border border-slate-200/80 shadow-xs">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-berry/10 text-berry ring-8 ring-berry/5">
             <Users className="h-10 w-10" />
           </div>
           <h3 className="mt-4 text-base font-bold text-slate-900">
@@ -216,7 +216,7 @@ export default function UsersPage() {
           <button
             type="button"
             onClick={() => setIsAddUserModalOpen(true)}
-            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
+            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>+ Add User</span>
@@ -256,7 +256,7 @@ export default function UsersPage() {
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
                           u.role === 'Admin'
-                            ? 'bg-[#C02586]/10 text-[#C02586]'
+                            ? 'bg-berry/10 text-berry'
                             : u.role === 'Client'
                             ? 'bg-blue-50 text-blue-700'
                             : u.role === 'Manager'
@@ -289,7 +289,7 @@ export default function UsersPage() {
                           className="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 font-medium text-[11px] transition-colors flex items-center gap-1"
                           title="Preview invitation email"
                         >
-                          <Mail className="h-3 w-3 text-[#C02586]" />
+                          <Mail className="h-3 w-3 text-berry" />
                           <span>Invite Email</span>
                         </button>
                         <button
@@ -335,7 +335,7 @@ export default function UsersPage() {
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="e.g. Marcus Brody"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -349,7 +349,7 @@ export default function UsersPage() {
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="marcus@nexusrobotics.ai"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -360,7 +360,7 @@ export default function UsersPage() {
                 <select
                   value={newRole}
                   onChange={(e) => setNewRole(e.target.value as any)}
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                 >
                   <option value="Client">Client (Dashboard & Balance View)</option>
                   <option value="Team Member">Team Member (Tasks & Queue)</option>
@@ -375,7 +375,7 @@ export default function UsersPage() {
                     type="checkbox"
                     checked={sendInvite}
                     onChange={(e) => setSendInvite(e.target.checked)}
-                    className="h-4 w-4 rounded border-slate-300 accent-[#C02586]"
+                    className="h-4 w-4 rounded border-slate-300 accent-berry"
                   />
                   <span>Send invitation email with temporary password</span>
                 </label>
@@ -391,7 +391,7 @@ export default function UsersPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
                 >
                   Add User
                 </button>
@@ -407,7 +407,7 @@ export default function UsersPage() {
           <div className="w-full max-w-md bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 animate-in zoom-in-95 duration-150">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-[#C02586]" />
+                <Mail className="h-4 w-4 text-berry" />
                 <h3 className="text-base font-bold text-slate-900">Email Invitation</h3>
               </div>
               <button
@@ -422,14 +422,14 @@ export default function UsersPage() {
             {/* Rendered Email Template Preview matching Figma Board 2 */}
             <div className="mt-4 p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-3">
               <div className="flex items-center gap-2">
-                <div className="flex h-7 px-2 items-center justify-center rounded-lg bg-[#C02586] text-white font-black text-xs">
+                <div className="flex h-7 px-2 items-center justify-center rounded-lg bg-berry text-white font-black text-xs">
                   DM
                 </div>
                 <span className="font-bold text-slate-800">Digest Media App</span>
               </div>
               <p className="text-slate-800 font-semibold">Hello {invitePreviewUser.name},</p>
               <p className="text-slate-600 leading-relaxed">
-                You have been invited to join the <span className="font-bold text-slate-900">Digest Media App Manager</span> workspace as a <span className="font-bold text-[#C02586]">{invitePreviewUser.role}</span>.
+                You have been invited to join the <span className="font-bold text-slate-900">Digest Media App Manager</span> workspace as a <span className="font-bold text-berry">{invitePreviewUser.role}</span>.
               </p>
               <p className="text-slate-600">
                 To activate your account and set your secure password, click the link below:
@@ -438,7 +438,7 @@ export default function UsersPage() {
                 <a
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="inline-block px-4 py-2 bg-[#C02586] text-white font-semibold rounded-xl text-xs"
+                  className="inline-block px-4 py-2 bg-berry text-white font-semibold rounded-xl text-xs"
                 >
                   Accept & Activate Account
                 </a>
@@ -452,7 +452,7 @@ export default function UsersPage() {
               <button
                 type="button"
                 onClick={() => setInvitePreviewUser(null)}
-                className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
               >
                 Close Preview
               </button>

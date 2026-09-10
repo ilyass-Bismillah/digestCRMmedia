@@ -184,7 +184,7 @@ export default function TicketsPage() {
               Tickets
             </h1>
             {/* Perspective Switcher matching Figma Board 4 */}
-            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#C02586]/10 text-[#C02586]">
+            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-berry/10 text-berry">
               {uiMode === 'client' ? 'Client UI' : 'Admin UI'}
             </span>
           </div>
@@ -201,7 +201,7 @@ export default function TicketsPage() {
               onClick={() => setUiMode('client')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 uiMode === 'client'
-                  ? 'bg-white text-[#C02586] shadow-xs'
+                  ? 'bg-white text-berry shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -212,7 +212,7 @@ export default function TicketsPage() {
               onClick={() => setUiMode('admin')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 uiMode === 'admin'
-                  ? 'bg-white text-[#C02586] shadow-xs'
+                  ? 'bg-white text-berry shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -232,7 +232,7 @@ export default function TicketsPage() {
             <button
               type="button"
               onClick={() => setIsAddModalOpen(true)}
-              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
             >
               <Plus className="h-4 w-4 stroke-[2.5]" />
               <span>+ Add Ticket</span>
@@ -250,7 +250,7 @@ export default function TicketsPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search tickets by subject, ID, or client..."
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-berry transition-all"
           />
         </div>
 
@@ -263,7 +263,7 @@ export default function TicketsPage() {
               onClick={() => setStatusFilter(st)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all whitespace-nowrap ${
                 statusFilter === st
-                  ? 'bg-[#C02586] text-white shadow-xs'
+                  ? 'bg-berry text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -277,7 +277,7 @@ export default function TicketsPage() {
       {showEmptyPreview || filteredTickets.length === 0 ? (
         /* Empty State matching Figma Board 4 */
         <div className="rounded-2xl bg-white p-12 text-center border border-slate-200/80 shadow-xs">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-berry/10 text-berry ring-8 ring-berry/5">
             <LifeBuoy className="h-10 w-10" />
           </div>
           <h3 className="mt-4 text-base font-bold text-slate-900">
@@ -289,7 +289,7 @@ export default function TicketsPage() {
           <button
             type="button"
             onClick={() => setIsAddModalOpen(true)}
-            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
+            className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>+ Add Ticket</span>
@@ -418,7 +418,7 @@ export default function TicketsPage() {
                   value={newSubject}
                   onChange={(e) => setNewSubject(e.target.value)}
                   placeholder="e.g. Video resolution adjustment for Meta reel"
-                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -430,7 +430,7 @@ export default function TicketsPage() {
                   <select
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                   >
                     <option value="Campaign Creative">Campaign Creative</option>
                     <option value="Ad Spend & Billing">Ad Spend & Billing</option>
@@ -446,7 +446,7 @@ export default function TicketsPage() {
                   <select
                     value={newPriority}
                     onChange={(e) => setNewPriority(e.target.value as any)}
-                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                    className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -465,7 +465,7 @@ export default function TicketsPage() {
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   placeholder="Describe your issue or requested creative adjustment in detail..."
-                  className="w-full p-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                  className="w-full p-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -481,7 +481,7 @@ export default function TicketsPage() {
                     <button
                       type="button"
                       onClick={() => handleSimulateUpload(false)}
-                      className="text-[#C02586] hover:underline"
+                      className="text-berry hover:underline"
                     >
                       Upload
                     </button>
@@ -499,7 +499,7 @@ export default function TicketsPage() {
                 {uploadState === 'idle' && (
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-slate-200 hover:border-[#C02586]/60 rounded-2xl p-5 text-center cursor-pointer bg-slate-50/50 transition-colors"
+                    className="border-2 border-dashed border-slate-200 hover:border-berry/60 rounded-2xl p-5 text-center cursor-pointer bg-slate-50/50 transition-colors"
                   >
                     <input
                       type="file"
@@ -507,9 +507,9 @@ export default function TicketsPage() {
                       onChange={handleRealFileUpload}
                       className="hidden"
                     />
-                    <Upload className="h-6 w-6 text-[#C02586] mx-auto" />
+                    <Upload className="h-6 w-6 text-berry mx-auto" />
                     <p className="text-xs font-semibold text-slate-800 mt-1.5">
-                      Drag & Drop files or <span className="text-[#C02586]">Browse</span>
+                      Drag & Drop files or <span className="text-berry">Browse</span>
                     </p>
                     <p className="text-[10px] text-slate-400 mt-0.5">MP4, MOV, PNG, PDF up to 25MB (Cloudflare R2)</p>
                   </div>
@@ -519,14 +519,14 @@ export default function TicketsPage() {
                   <div className="border border-slate-200 rounded-2xl p-4 bg-slate-50 space-y-2">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-semibold text-slate-700 flex items-center gap-2">
-                        <FileText className="h-4 w-4 text-[#C02586]" />
+                        <FileText className="h-4 w-4 text-berry" />
                         Uploading creative_asset_revision.mp4
                       </span>
-                      <span className="font-bold text-[#C02586]">{uploadProgress}%</span>
+                      <span className="font-bold text-berry">{uploadProgress}%</span>
                     </div>
                     <div className="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
                       <div
-                        className="h-full bg-[#C02586] transition-all duration-200 rounded-full"
+                        className="h-full bg-berry transition-all duration-200 rounded-full"
                         style={{ width: `${uploadProgress}%` }}
                       />
                     </div>
@@ -587,7 +587,7 @@ export default function TicketsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs cursor-pointer"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs cursor-pointer"
                 >
                   Submit Ticket
                 </button>
@@ -603,7 +603,7 @@ export default function TicketsPage() {
           <div className="w-full max-w-xl bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 animate-in zoom-in-95 duration-150 flex flex-col max-h-[85vh]">
             <div className="flex items-start justify-between pb-4 border-b border-slate-100">
               <div>
-                <span className="text-[10px] font-mono font-bold text-[#C02586]">
+                <span className="text-[10px] font-mono font-bold text-berry">
                   {activeTicket.ticketNumber}
                 </span>
                 <h3 className="text-base font-bold text-slate-900 mt-0.5">{activeTicket.subject}</h3>
@@ -640,7 +640,7 @@ export default function TicketsPage() {
                     <div
                       className={`p-3 rounded-2xl ${
                         m.isStaff
-                          ? 'bg-[#C02586] text-white rounded-tr-xs text-left'
+                          ? 'bg-berry text-white rounded-tr-xs text-left'
                           : 'bg-slate-100 text-slate-800 rounded-tl-xs'
                       }`}
                     >
@@ -659,11 +659,11 @@ export default function TicketsPage() {
                 value={replyInput}
                 onChange={(e) => setReplyInput(e.target.value)}
                 placeholder="Type response to ticket..."
-                className="flex-1 px-4 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                className="flex-1 px-4 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-[#C02586] hover:bg-[#A01E6F] text-white rounded-xl text-xs font-semibold shadow-xs flex items-center gap-1.5"
+                className="px-4 py-2 bg-berry hover:bg-[#A01E6F] text-white rounded-xl text-xs font-semibold shadow-xs flex items-center gap-1.5"
               >
                 <Send className="h-3.5 w-3.5" />
                 <span>Reply</span>

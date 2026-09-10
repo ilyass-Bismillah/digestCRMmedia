@@ -23,7 +23,7 @@ export default function AccountDeletedPage() {
         <div className="mt-8">
           <Link
             href="/login"
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white font-semibold text-sm shadow-md transition-all active:scale-[0.98]"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-berry hover:bg-[#A01E6F] text-white font-semibold text-sm shadow-md transition-all active:scale-[0.98]"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to login</span>

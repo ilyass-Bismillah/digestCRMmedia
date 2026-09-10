@@ -149,7 +149,7 @@ export default function DashboardPage() {
           <button
             type="button"
             onClick={() => setActiveModal('add_task')}
-            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-sm transition-all active:scale-95 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-sm transition-all active:scale-95 cursor-pointer"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>+ Add Task</span>
@@ -194,7 +194,7 @@ export default function DashboardPage() {
 
               <div className="mt-1 flex items-center justify-between text-[11px] text-slate-400">
                 <span>{kpi.subtext}</span>
-                <span className="text-[#C02586] opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 font-medium">
+                <span className="text-berry opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 font-medium">
                   View <ChevronRight className="h-3 w-3" />
                 </span>
               </div>
@@ -210,7 +210,7 @@ export default function DashboardPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <BarChart3 className="h-4.5 w-4.5 text-[#C02586]" />
+                <BarChart3 className="h-4.5 w-4.5 text-berry" />
                 Spend Budget
               </h2>
               <p className="text-xs text-slate-500">
@@ -227,7 +227,7 @@ export default function DashboardPage() {
                   onClick={() => setTimeRange(r)}
                   className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all ${
                     timeRange === r
-                      ? 'bg-white text-[#C02586] shadow-xs'
+                      ? 'bg-white text-berry shadow-xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -298,14 +298,14 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <DollarSign className="h-4.5 w-4.5 text-[#C02586]" />
+                <DollarSign className="h-4.5 w-4.5 text-berry" />
                 Spend on Ads
               </h2>
               <p className="text-xs text-slate-500">
                 Monthly distribution of advertising spend
               </p>
             </div>
-            <span className="text-xs font-bold text-[#C02586] bg-[#C02586]/10 px-2.5 py-1 rounded-full">
+            <span className="text-xs font-bold text-berry bg-berry/10 px-2.5 py-1 rounded-full">
               2024 / 2025
             </span>
           </div>
@@ -365,12 +365,12 @@ export default function DashboardPage() {
           <div className="space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <CheckSquare className="h-4 w-4 text-[#C02586]" />
+                <CheckSquare className="h-4 w-4 text-berry" />
                 <h2 className="text-base font-bold text-slate-900">Quick Tasks</h2>
               </div>
               <Link
                 href="/tasks"
-                className="text-xs font-semibold text-[#C02586] hover:underline"
+                className="text-xs font-semibold text-berry hover:underline"
               >
                 View all
               </Link>
@@ -388,7 +388,7 @@ export default function DashboardPage() {
                   className={`flex items-start gap-3 p-3 rounded-xl border transition-all cursor-pointer select-none ${
                     task.completed
                       ? 'bg-slate-50 border-slate-200/60 opacity-60'
-                      : 'bg-white border-slate-200 hover:border-[#C02586]/40 hover:shadow-xs'
+                      : 'bg-white border-slate-200 hover:border-berry/40 hover:shadow-xs'
                   }`}
                 >
                   <button
@@ -399,8 +399,8 @@ export default function DashboardPage() {
                     }}
                     className={`mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-md border transition-colors ${
                       task.completed
-                        ? 'bg-[#C02586] border-[#C02586] text-white'
-                        : 'border-slate-300 hover:border-[#C02586]'
+                        ? 'bg-berry border-berry text-white'
+                        : 'border-slate-300 hover:border-berry'
                     }`}
                   >
                     {task.completed && <CheckCircle2 className="h-3.5 w-3.5" />}
@@ -415,7 +415,7 @@ export default function DashboardPage() {
                       {task.title}
                     </p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-[10px] text-slate-400 truncate max-w-[120px]">
+                      <span className="text-[10px] text-slate-400 truncate max-w-30">
                         {task.clientName}
                       </span>
                       <span
@@ -439,7 +439,7 @@ export default function DashboardPage() {
           <button
             type="button"
             onClick={() => setActiveModal('add_task')}
-            className="w-full mt-4 flex items-center justify-center gap-1.5 py-2.5 text-xs font-semibold rounded-xl border border-dashed border-[#C02586]/40 text-[#C02586] hover:bg-[#C02586]/5 transition-colors cursor-pointer"
+            className="w-full mt-4 flex items-center justify-center gap-1.5 py-2.5 text-xs font-semibold rounded-xl border border-dashed border-berry/40 text-berry hover:bg-berry/5 transition-colors cursor-pointer"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>+ Add Task</span>
@@ -450,7 +450,7 @@ export default function DashboardPage() {
         <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100">
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Clock className="h-4.5 w-4.5 text-[#C02586]" />
+              <Clock className="h-4.5 w-4.5 text-berry" />
               Recent Activity
             </h2>
             <span className="text-xs text-slate-400">Live feed</span>
@@ -494,7 +494,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="h-8 w-8 rounded-full bg-[#C02586]/10 text-[#C02586] flex items-center justify-center shrink-0">
+              <div className="h-8 w-8 rounded-full bg-berry/10 text-berry flex items-center justify-center shrink-0">
                 <Users className="h-4 w-4" />
               </div>
               <div className="flex-1">

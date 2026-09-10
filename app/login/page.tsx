@@ -71,12 +71,12 @@ function LoginForm() {
     <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="relative w-full max-w-md">
         {/* Ambient brand glow */}
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 bg-[#C02586]/10 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 bg-berry/10 blur-3xl rounded-full pointer-events-none" />
 
         <div className="relative rounded-3xl bg-white p-7 sm:p-9 shadow-xl border border-slate-200/80">
           {/* Logo & Header matching Figma Board 1 */}
           <div className="flex flex-col items-center text-center">
-            <div className="flex h-12 px-3 items-center justify-center rounded-2xl bg-[#C02586] text-white font-black text-xl shadow-md ring-4 ring-[#C02586]/15">
+            <div className="flex h-12 px-3 items-center justify-center rounded-2xl bg-berry text-white font-black text-xl shadow-md ring-4 ring-berry/15">
               DM
             </div>
             <h1 className="mt-4 text-2xl font-bold tracking-tight text-slate-900">
@@ -91,7 +91,7 @@ function LoginForm() {
           <div className="mt-6 p-3 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2">
             <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">
               <span>Quick 1-Click Demo Login</span>
-              <Sparkles className="h-3 w-3 text-[#C02586]" />
+              <Sparkles className="h-3 w-3 text-berry" />
             </div>
             <div className="grid grid-cols-2 gap-2">
               <button
@@ -100,7 +100,7 @@ function LoginForm() {
                 disabled={submitting}
                 className="flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold shadow-xs transition-all active:scale-95 disabled:opacity-50"
               >
-                <ShieldCheck className="h-3.5 w-3.5 text-[#C02586]" />
+                <ShieldCheck className="h-3.5 w-3.5 text-berry" />
                 <span>Admin View</span>
               </button>
               <button
@@ -137,7 +137,7 @@ function LoginForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@digestmedia.co"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -149,7 +149,7 @@ function LoginForm() {
                 </label>
                 <Link
                   href="/forgot-password"
-                  className="text-xs font-semibold text-[#C02586] hover:underline"
+                  className="text-xs font-semibold text-berry hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -162,7 +162,7 @@ function LoginForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-10 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
                 <button
                   type="button"
@@ -180,7 +180,7 @@ function LoginForm() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="h-4 w-4 rounded border-slate-300 accent-[#C02586]"
+                  className="h-4 w-4 rounded border-slate-300 accent-berry"
                 />
                 <span>Remember this device</span>
               </label>
@@ -189,7 +189,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+              className="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-berry hover:bg-[#A01E6F] text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
             >
               {submitting ? (
                 <>
@@ -210,7 +210,7 @@ function LoginForm() {
             Don&apos;t have an account yet?{' '}
             <Link
               href="/signup"
-              className="font-bold text-[#C02586] hover:underline"
+              className="font-bold text-berry hover:underline"
             >
               Create Account
             </Link>
@@ -227,7 +227,7 @@ export default function LoginPage() {
       <React.Suspense
         fallback={
           <div className="flex h-screen w-full items-center justify-center bg-slate-50">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#C02586]/20 border-t-[#C02586]" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-berry/20 border-t-berry" />
           </div>
         }
       >

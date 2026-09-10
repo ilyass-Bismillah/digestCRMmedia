@@ -42,11 +42,11 @@ function ForgotPasswordForm() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#F8F9FA] p-4 sm:p-6 lg:p-8 font-sans">
       <div className="relative w-full max-w-md">
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 bg-[#C02586]/10 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 bg-berry/10 blur-3xl rounded-full pointer-events-none" />
 
         <div className="relative rounded-3xl bg-white p-7 sm:p-9 shadow-xl border border-slate-200/80">
           <div className="flex flex-col items-center text-center">
-            <div className="flex h-12 px-3 items-center justify-center rounded-2xl bg-[#C02586] text-white font-black text-xl shadow-md ring-4 ring-[#C02586]/15">
+            <div className="flex h-12 px-3 items-center justify-center rounded-2xl bg-berry text-white font-black text-xl shadow-md ring-4 ring-berry/15">
               DM
             </div>
             <h1 className="mt-4 text-2xl font-bold tracking-tight text-slate-900">
@@ -59,7 +59,7 @@ function ForgotPasswordForm() {
 
           {submitted ? (
             <div className="mt-6 space-y-4 text-center animate-in fade-in zoom-in-95 duration-200">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-berry/10 text-berry ring-8 ring-berry/5">
                 <CheckCircle2 className="h-7 w-7" />
               </div>
               <h3 className="text-base font-bold text-slate-900">
@@ -72,7 +72,7 @@ function ForgotPasswordForm() {
               <div className="pt-2 space-y-2">
                 <Link
                   href={`/reset-password?email=${encodeURIComponent(email)}`}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#C02586] text-white text-xs font-semibold shadow-sm hover:bg-[#A01E6F] transition-all"
+                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-berry text-white text-xs font-semibold shadow-sm hover:bg-[#A01E6F] transition-all"
                 >
                   <span>Set New Password</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -108,7 +108,7 @@ function ForgotPasswordForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="samantha@digestmedia.co"
-                    className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                    className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                   />
                 </div>
               </div>
@@ -116,7 +116,7 @@ function ForgotPasswordForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white font-semibold text-xs sm:text-sm shadow-md transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+                className="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-berry hover:bg-[#A01E6F] text-white font-semibold text-xs sm:text-sm shadow-md transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
               >
                 {loading ? (
                   <>
@@ -131,7 +131,7 @@ function ForgotPasswordForm() {
               <div className="pt-4 text-center">
                 <Link
                   href="/login"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#C02586] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-berry transition-colors"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" />
                   <span>Back to login</span>

@@ -39,7 +39,7 @@ export default function NotificationsPage() {
       case 'ticket':
         return <div className="h-2.5 w-2.5 rounded-full bg-amber-500" />;
       default:
-        return <div className="h-2.5 w-2.5 rounded-full bg-[#C02586]" />;
+        return <div className="h-2.5 w-2.5 rounded-full bg-berry" />;
     }
   };
 
@@ -67,7 +67,7 @@ export default function NotificationsPage() {
           <button
             type="button"
             onClick={() => markAllNotificationsAsRead()}
-            className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white font-semibold text-xs transition-all active:scale-95 cursor-pointer shadow-xs"
+            className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-berry hover:bg-[#A01E6F] text-white font-semibold text-xs transition-all active:scale-95 cursor-pointer shadow-xs"
           >
             <Check className="h-3.5 w-3.5" />
             <span>Mark all as read</span>
@@ -89,7 +89,7 @@ export default function NotificationsPage() {
             onClick={() => setFilterType(tab.id as any)}
             className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg capitalize transition-all ${
               filterType === tab.id
-                ? 'bg-white text-[#C02586] shadow-xs'
+                ? 'bg-white text-berry shadow-xs'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -101,7 +101,7 @@ export default function NotificationsPage() {
       {/* Notifications List or Empty State */}
       {showEmptyPreview || filteredNotifs.length === 0 ? (
         <div className="rounded-2xl bg-white p-12 text-center border border-slate-200/80 shadow-xs">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-berry/10 text-berry ring-8 ring-berry/5">
             <Bell className="h-10 w-10" />
           </div>
           <h3 className="mt-4 text-base font-bold text-slate-900">
@@ -118,7 +118,7 @@ export default function NotificationsPage() {
               key={notif.id}
               onClick={() => markNotificationAsRead(notif.id)}
               className={`p-4 sm:p-5 flex items-start justify-between gap-4 transition-colors cursor-pointer ${
-                notif.unread ? 'bg-[#C02586]/5' : 'hover:bg-slate-50'
+                notif.unread ? 'bg-berry/5' : 'hover:bg-slate-50'
               }`}
             >
               <div className="flex items-start gap-3.5">
@@ -129,7 +129,7 @@ export default function NotificationsPage() {
                   <div className="flex items-center gap-2">
                     <h3 className="text-sm font-bold text-slate-900">{notif.title}</h3>
                     {notif.unread && (
-                      <span className="h-2 w-2 rounded-full bg-[#C02586]" />
+                      <span className="h-2 w-2 rounded-full bg-berry" />
                     )}
                   </div>
                   <p className="text-xs text-slate-600 mt-1 leading-relaxed">
@@ -145,7 +145,7 @@ export default function NotificationsPage() {
               {notif.link && (
                 <Link
                   href={notif.link}
-                  className="shrink-0 p-2 text-slate-400 hover:text-[#C02586] hover:bg-slate-100 rounded-lg transition-colors"
+                  className="shrink-0 p-2 text-slate-400 hover:text-berry hover:bg-slate-100 rounded-lg transition-colors"
                 >
                   <ExternalLink className="h-4 w-4" />
                 </Link>

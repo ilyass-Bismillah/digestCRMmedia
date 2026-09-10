@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased selection:bg-[#C02586]/20 selection:text-[#C02586]">
+      <body className="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased selection:bg-berry/20 selection:text-berry">
         {children}
       </body>
     </html>

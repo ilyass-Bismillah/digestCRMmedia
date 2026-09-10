@@ -174,7 +174,7 @@ export default function BalancePage() {
               Balance
             </h1>
             {/* Mode badge */}
-            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#C02586]/10 text-[#C02586]">
+            <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-berry/10 text-berry">
               {uiMode === 'client' ? 'Client UI' : 'Admin UI'}
             </span>
           </div>
@@ -191,7 +191,7 @@ export default function BalancePage() {
               onClick={() => setUiMode('client')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 uiMode === 'client'
-                  ? 'bg-white text-[#C02586] shadow-xs'
+                  ? 'bg-white text-berry shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -202,7 +202,7 @@ export default function BalancePage() {
               onClick={() => setUiMode('admin')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 uiMode === 'admin'
-                  ? 'bg-white text-[#C02586] shadow-xs'
+                  ? 'bg-white text-berry shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -222,7 +222,7 @@ export default function BalancePage() {
             <button
               type="button"
               onClick={() => setIsAddPaymentModalOpen(true)}
-              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-xs transition-all active:scale-95 cursor-pointer"
             >
               <Plus className="h-4 w-4 stroke-[2.5]" />
               <span>+ Add Payment</span>
@@ -247,7 +247,7 @@ export default function BalancePage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search transaction ID..."
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-berry transition-all"
           />
         </div>
 
@@ -260,7 +260,7 @@ export default function BalancePage() {
               onClick={() => setStatusFilter(st)}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all whitespace-nowrap ${
                 statusFilter === st
-                  ? 'bg-[#C02586] text-white shadow-xs'
+                  ? 'bg-berry text-white shadow-xs'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -274,7 +274,7 @@ export default function BalancePage() {
       {showEmptyPreview || filteredPayments.length === 0 ? (
         /* Empty State matching Figma Board 5 */
         <div className="rounded-2xl bg-white p-12 text-center border border-slate-200/80 shadow-xs">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-[#C02586]/10 text-[#C02586] ring-8 ring-[#C02586]/5">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-berry/10 text-berry ring-8 ring-berry/5">
             <WalletCards className="h-10 w-10" />
           </div>
           <h3 className="mt-4 text-base font-bold text-slate-900">
@@ -287,7 +287,7 @@ export default function BalancePage() {
             <button
               type="button"
               onClick={() => setIsAddPaymentModalOpen(true)}
-              className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
+              className="mt-6 inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl bg-berry hover:bg-[#A01E6F] text-white shadow-sm transition-all cursor-pointer"
             >
               <Plus className="h-3.5 w-3.5" />
               <span>+ Add Payment</span>
@@ -358,7 +358,7 @@ export default function BalancePage() {
                         <button
                           type="button"
                           onClick={() => handleDownloadInvoice(p.transactionId)}
-                          className="p-1.5 text-slate-400 hover:text-[#C02586] rounded-lg hover:bg-slate-100 transition-colors"
+                          className="p-1.5 text-slate-400 hover:text-berry rounded-lg hover:bg-slate-100 transition-colors"
                           title="Download Receipt"
                         >
                           <Download className="h-4 w-4" />
@@ -401,7 +401,7 @@ export default function BalancePage() {
                     required
                     value={paymentAmount}
                     onChange={(e) => setPaymentAmount(e.target.value)}
-                    className="w-full pl-9 pr-3.5 py-2.5 text-base font-bold text-slate-900 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586]"
+                    className="w-full pl-9 pr-3.5 py-2.5 text-base font-bold text-slate-900 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
               </div>
@@ -416,7 +416,7 @@ export default function BalancePage() {
                       key={m}
                       className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
                         selectedMethod === m
-                          ? 'border-[#C02586] bg-[#C02586]/5 text-[#C02586] font-semibold'
+                          ? 'border-berry bg-berry/5 text-berry font-semibold'
                           : 'border-slate-200 text-slate-700 hover:bg-slate-50'
                       }`}
                     >
@@ -429,7 +429,7 @@ export default function BalancePage() {
                         name="payment_method"
                         checked={selectedMethod === m}
                         onChange={() => setSelectedMethod(m)}
-                        className="accent-[#C02586]"
+                        className="accent-berry"
                       />
                     </label>
                   ))}
@@ -446,7 +446,7 @@ export default function BalancePage() {
                   className={`border-2 border-dashed rounded-2xl p-4 text-center cursor-pointer transition-colors ${
                     hasReceiptUploaded
                       ? 'border-emerald-300 bg-emerald-50/50'
-                      : 'border-slate-200 hover:border-[#C02586]/50 bg-slate-50/50'
+                      : 'border-slate-200 hover:border-berry/50 bg-slate-50/50'
                   }`}
                 >
                   <input
@@ -477,7 +477,7 @@ export default function BalancePage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-[#C02586] hover:bg-[#A01E6F] rounded-xl shadow-xs cursor-pointer"
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs cursor-pointer"
                 >
                   Submit Payment
                 </button>

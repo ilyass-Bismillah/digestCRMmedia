@@ -3,13 +3,13 @@ export default function Loading() {
     <div className="min-h-screen w-full bg-white flex flex-col items-center justify-center">
       <div className="relative flex items-center justify-center">
         {/* Pulsing Outer Glow */}
-        <div className="absolute w-20 h-20 rounded-full bg-[#C02586]/15 animate-ping" />
+        <div className="absolute w-20 h-20 rounded-full bg-berry/15 animate-ping" />
 
         {/* Rotating border spinner */}
-        <div className="w-16 h-16 rounded-full border-2 border-slate-100 border-t-[#C02586] animate-spin" />
+        <div className="w-16 h-16 rounded-full border-2 border-slate-100 border-t-berry animate-spin" />
 
         {/* Central Brand DM Monogram */}
-        <div className="absolute w-10 h-10 rounded-full bg-[#C02586] flex items-center justify-center shadow-md">
+        <div className="absolute w-10 h-10 rounded-full bg-berry flex items-center justify-center shadow-md">
           <span className="text-white font-extrabold text-sm tracking-tight select-none">
             DM
           </span>

@@ -70,12 +70,11 @@ function SignupForm() {
     }
   };
 
-  // Congratulations Modal / Screen (Figma Board 1 "Connect")
   if (isSuccess) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center bg-[#F8F9FA] p-4 font-sans">
         <div className="relative w-full max-w-md rounded-3xl bg-white p-8 sm:p-10 shadow-xl border border-slate-200/80 text-center animate-in zoom-in-95 duration-200">
-          <div className="flex h-14 px-3 mx-auto items-center justify-center w-fit rounded-2xl bg-[#C02586] text-white font-black text-2xl shadow-md ring-4 ring-[#C02586]/15">
+          <div className="flex h-14 px-3 mx-auto items-center justify-center w-fit rounded-2xl bg-berry text-white font-black text-2xl shadow-md ring-4 ring-berry/15">
             DM
           </div>
           <h2 className="mt-5 text-2xl font-bold tracking-tight text-slate-900">
@@ -87,7 +86,7 @@ function SignupForm() {
           <button
             type="button"
             onClick={() => router.push('/dashboard')}
-            className="mt-6 w-full py-3 px-4 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white font-semibold text-sm shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            className="mt-6 w-full py-3 px-4 rounded-xl bg-berry hover:bg-[#A01E6F] text-white font-semibold text-sm shadow-md transition-all active:scale-[0.98] cursor-pointer"
           >
             Login now
           </button>
@@ -102,18 +101,18 @@ function SignupForm() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#F8F9FA] p-4 sm:p-6 lg:p-8 font-sans">
       <div className="relative w-full max-w-md">
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 bg-[#C02586]/10 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-64 bg-berry/10 blur-3xl rounded-full pointer-events-none" />
 
         <div className="relative rounded-3xl bg-white p-7 sm:p-9 shadow-xl border border-slate-200/80">
           {/* Logo & Header Matching Figma */}
           <div className="flex flex-col items-center text-center">
-            <div className="flex h-12 px-3 items-center justify-center rounded-2xl bg-[#C02586] text-white font-black text-xl shadow-md ring-4 ring-[#C02586]/15">
+            <div className="flex h-12 px-3 items-center justify-center rounded-2xl bg-berry text-white font-black text-xl shadow-md ring-4 ring-berry/15">
               DM
             </div>
             <h1 className="mt-4 text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
               Welcome to Digest Web application
             </h1>
-            <p className="text-xs sm:text-sm font-semibold text-[#C02586] mt-1">
+            <p className="text-xs sm:text-sm font-semibold text-berry mt-1">
               Take Charge of Your Business Service with Digest App Manager
             </p>
             <p className="text-xs text-slate-400 mt-2">
@@ -141,7 +140,7 @@ function SignupForm() {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder="e.g. Samantha"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
               <div>
@@ -154,7 +153,7 @@ function SignupForm() {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder="e.g. William"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -172,7 +171,7 @@ function SignupForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="samantha@digestmedia.co"
-                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                 />
               </div>
             </div>
@@ -186,7 +185,7 @@ function SignupForm() {
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as UserRole)}
-                  className="w-full appearance-none px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all text-slate-700 pr-8 cursor-pointer"
+                  className="w-full appearance-none px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-berry transition-all text-slate-700 pr-8 cursor-pointer"
                 >
                   <option value="user">Client / Team User</option>
                   <option value="admin">Administrator (Full Access)</option>
@@ -209,7 +208,7 @@ function SignupForm() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-9 pr-2.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                    className="w-full pl-9 pr-2.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                   />
                 </div>
               </div>
@@ -226,7 +225,7 @@ function SignupForm() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-9 pr-2.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#C02586] transition-all"
+                    className="w-full pl-9 pr-2.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry transition-all"
                   />
                 </div>
               </div>
@@ -238,7 +237,7 @@ function SignupForm() {
                   type="checkbox"
                   checked={termsAccepted}
                   onChange={(e) => setTermsAccepted(e.target.checked)}
-                  className="h-4 w-4 rounded border-slate-300 accent-[#C02586]"
+                  className="h-4 w-4 rounded border-slate-300 accent-berry"
                 />
                 <span>I accept terms & conditions</span>
               </label>
@@ -247,7 +246,7 @@ function SignupForm() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full mt-3 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#C02586] hover:bg-[#A01E6F] text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+              className="w-full mt-3 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-berry hover:bg-[#A01E6F] text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
             >
               {submitting ? (
                 <>
@@ -267,7 +266,7 @@ function SignupForm() {
             Already have an account?{' '}
             <Link
               href="/login"
-              className="font-bold text-[#C02586] hover:underline"
+              className="font-bold text-berry hover:underline"
             >
               Sign in
             </Link>
