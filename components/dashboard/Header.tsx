@@ -21,6 +21,7 @@ import {
   User,
   ShieldCheck,
   RefreshCw,
+  Share2,
 } from 'lucide-react';
 import { useDashboard } from '@/lib/dashboard-context';
 import { useAuth } from '@/lib/auth-context';
@@ -169,6 +170,17 @@ export function Header() {
                 >
                   <LifeBuoy className="h-4 w-4 text-amber-600" />
                   Open Support Ticket
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuickActionOpen(false);
+                    setActiveModal('add_account');
+                  }}
+                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-sm hover:bg-berry/10 hover:text-berry text-slate-700 text-left transition-colors font-medium"
+                >
+                  <Share2 className="h-4 w-4 text-purple-600" />
+                  Connect Ad Account
                 </button>
                 <div className="my-1 border-t border-slate-100" />
                 <button

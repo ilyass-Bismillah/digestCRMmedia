@@ -12,12 +12,13 @@ import {
   AlertCircle,
   KeyRound,
 } from 'lucide-react';
-import { AuthProvider } from '@/lib/auth-context';
+import { AuthProvider, useAuth } from '@/lib/auth-context';
 
 function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || 'admin@digestmedia.co';
+  const { updatePassword } = useAuth();
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -51,9 +52,14 @@ function ResetPasswordForm() {
     }
 
     setSubmitting(true);
-    await new Promise((res) => setTimeout(res, 700));
-    setSubmitting(false);
-    setSuccess(true);
+    try {
+      await updatePassword(password);
+      setSuccess(true);
+    } catch (err: any) {
+      setErrorMessage(err?.message || 'Failed to update password.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

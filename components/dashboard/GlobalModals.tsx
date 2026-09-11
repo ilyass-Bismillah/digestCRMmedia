@@ -18,6 +18,8 @@ import {
   Check,
   ChevronRight,
   User,
+  Share2,
+  Loader2,
 } from 'lucide-react';
 import { useDashboard } from '@/lib/dashboard-context';
 
@@ -29,12 +31,15 @@ export function GlobalModals() {
     addClient,
     addTask,
     addTicket,
+    addAccount,
     addTransaction,
     clients,
     tasks,
     tickets,
     teamMembers,
   } = useDashboard();
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Search Modal state
   const [searchQuery, setSearchQuery] = useState('');
@@ -75,6 +80,15 @@ export function GlobalModals() {
     lastMessage: '',
   });
 
+  // Add Account Form state
+  const [accountForm, setAccountForm] = useState({
+    name: '',
+    platform: 'Meta Ads' as const,
+    clientName: clients[0]?.company || clients[0]?.name || 'Aura Cosmetics Global',
+    accountId: '',
+    balance: 5000,
+  });
+
   // Payout Form state
   const [payoutForm, setPayoutForm] = useState({
     amount: 5000,
@@ -84,7 +98,11 @@ export function GlobalModals() {
 
   if (!activeModal) return null;
 
-  const handleClose = () => setActiveModal(null);
+  const handleClose = () => {
+    if (!isSubmitting) {
+      setActiveModal(null);
+    }
+  };
 
   // Search Filter
   const filteredClients = clients.filter(
@@ -109,17 +127,17 @@ export function GlobalModals() {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200"
+        className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs animate-in fade-in duration-200"
         onClick={handleClose}
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl border border-slate-100 z-10 animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
+      <div className="relative w-full max-w-xl rounded-3xl bg-white p-6 sm:p-7 shadow-2xl border border-slate-100 z-10 animate-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
         {/* ======================= SEARCH MODAL ======================= */}
         {activeModal === 'search' && (
           <div>
             <div className="flex items-center gap-3 border-b border-slate-200 pb-3">
-              <Search className="h-5 w-5 text-[#931B58]" />
+              <Search className="h-5 w-5 text-berry" />
               <input
                 type="text"
                 autoFocus
@@ -131,7 +149,7 @@ export function GlobalModals() {
               <button
                 type="button"
                 onClick={handleClose}
-                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+                className="rounded-xl p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -152,7 +170,7 @@ export function GlobalModals() {
                           handleClose();
                           router.push('/clients');
                         }}
-                        className="flex items-center justify-between p-2 rounded-xl hover:bg-[#931B58]/10 cursor-pointer group transition-colors"
+                        className="flex items-center justify-between p-2 rounded-xl hover:bg-berry/10 cursor-pointer group transition-colors"
                       >
                         <div className="flex items-center gap-2.5">
                           <img
@@ -161,13 +179,13 @@ export function GlobalModals() {
                             className="h-8 w-8 rounded-full object-cover"
                           />
                           <div>
-                            <p className="text-xs font-semibold text-slate-900 group-hover:text-[#931B58]">
+                            <p className="text-xs font-semibold text-slate-900 group-hover:text-berry">
                               {client.company}
                             </p>
                             <p className="text-[10px] text-slate-500">{client.name} • {client.category}</p>
                           </div>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#931B58]" />
+                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-berry" />
                       </div>
                     ))}
                   </div>
@@ -188,18 +206,18 @@ export function GlobalModals() {
                           handleClose();
                           router.push('/tasks');
                         }}
-                        className="flex items-center justify-between p-2 rounded-xl hover:bg-[#931B58]/10 cursor-pointer group transition-colors"
+                        className="flex items-center justify-between p-2 rounded-xl hover:bg-berry/10 cursor-pointer group transition-colors"
                       >
                         <div className="flex items-center gap-2.5">
                           <CheckSquare className="h-4 w-4 text-emerald-600" />
                           <div>
-                            <p className="text-xs font-semibold text-slate-900 group-hover:text-[#931B58]">
+                            <p className="text-xs font-semibold text-slate-900 group-hover:text-berry">
                               {task.title}
                             </p>
                             <p className="text-[10px] text-slate-500">{task.clientName} • Due: {task.dueDate}</p>
                           </div>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#931B58]" />
+                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-berry" />
                       </div>
                     ))}
                   </div>
@@ -220,18 +238,18 @@ export function GlobalModals() {
                           handleClose();
                           router.push('/tickets');
                         }}
-                        className="flex items-center justify-between p-2 rounded-xl hover:bg-[#931B58]/10 cursor-pointer group transition-colors"
+                        className="flex items-center justify-between p-2 rounded-xl hover:bg-berry/10 cursor-pointer group transition-colors"
                       >
                         <div className="flex items-center gap-2.5">
                           <LifeBuoy className="h-4 w-4 text-blue-600" />
                           <div>
-                            <p className="text-xs font-semibold text-slate-900 group-hover:text-[#931B58]">
+                            <p className="text-xs font-semibold text-slate-900 group-hover:text-berry">
                               {tk.ticketNumber}: {tk.subject}
                             </p>
                             <p className="text-[10px] text-slate-500">{tk.clientName} • {tk.status}</p>
                           </div>
                         </div>
-                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-[#931B58]" />
+                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-berry" />
                       </div>
                     ))}
                   </div>
@@ -254,7 +272,7 @@ export function GlobalModals() {
           <div>
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#931B58]/10 text-[#931B58]">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-berry/10 text-berry">
                   <UserPlus className="h-5 w-5" />
                 </div>
                 <div>
@@ -272,21 +290,26 @@ export function GlobalModals() {
             </div>
 
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                addClient({
-                  name: clientForm.name || 'Jane Doe',
-                  company: clientForm.company || 'New Studio Corp',
-                  email: clientForm.email || 'contact@client.com',
-                  phone: clientForm.phone || '+1 (555) 000-0000',
-                  category: clientForm.category,
-                  status: clientForm.status,
-                  retainer: Number(clientForm.retainer) || 5000,
-                  accountsCount: Number(clientForm.accountsCount) || 1,
-                  location: clientForm.location,
-                  avatar: clientForm.avatar,
-                });
-                handleClose();
+                setIsSubmitting(true);
+                try {
+                  await addClient({
+                    name: clientForm.name || 'Jane Doe',
+                    company: clientForm.company || 'New Studio Corp',
+                    email: clientForm.email || 'contact@client.com',
+                    phone: clientForm.phone || '+1 (555) 000-0000',
+                    category: clientForm.category,
+                    status: clientForm.status,
+                    retainer: Number(clientForm.retainer) || 5000,
+                    accountsCount: Number(clientForm.accountsCount) || 1,
+                    location: clientForm.location,
+                    avatar: clientForm.avatar,
+                  });
+                  handleClose();
+                } finally {
+                  setIsSubmitting(false);
+                }
               }}
               className="mt-4 space-y-3.5"
             >
@@ -301,7 +324,7 @@ export function GlobalModals() {
                     value={clientForm.name}
                     onChange={(e) => setClientForm({ ...clientForm, name: e.target.value })}
                     placeholder="e.g. Eleanor Vance"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
                 <div>
@@ -314,7 +337,7 @@ export function GlobalModals() {
                     value={clientForm.company}
                     onChange={(e) => setClientForm({ ...clientForm, company: e.target.value })}
                     placeholder="e.g. Aura Cosmetics Global"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
               </div>
@@ -330,7 +353,7 @@ export function GlobalModals() {
                     value={clientForm.email}
                     onChange={(e) => setClientForm({ ...clientForm, email: e.target.value })}
                     placeholder="eleanor@auracosmetics.com"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
                 <div>
@@ -342,7 +365,7 @@ export function GlobalModals() {
                     value={clientForm.phone}
                     onChange={(e) => setClientForm({ ...clientForm, phone: e.target.value })}
                     placeholder="+1 (555) 234-5678"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
               </div>
@@ -357,7 +380,7 @@ export function GlobalModals() {
                     onChange={(e) =>
                       setClientForm({ ...clientForm, category: e.target.value as any })
                     }
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     <option value="Fashion & Retail">Fashion & Retail</option>
                     <option value="Tech & SaaS">Tech & SaaS</option>
@@ -375,7 +398,7 @@ export function GlobalModals() {
                     onChange={(e) =>
                       setClientForm({ ...clientForm, status: e.target.value as any })
                     }
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     <option value="active">Active (Standard Retainer)</option>
                     <option value="vip">VIP Tier</option>
@@ -398,7 +421,7 @@ export function GlobalModals() {
                     onChange={(e) =>
                       setClientForm({ ...clientForm, retainer: Number(e.target.value) })
                     }
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
                 <div>
@@ -410,7 +433,7 @@ export function GlobalModals() {
                     value={clientForm.location}
                     onChange={(e) => setClientForm({ ...clientForm, location: e.target.value })}
                     placeholder="e.g. New York, USA"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
               </div>
@@ -425,9 +448,11 @@ export function GlobalModals() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold bg-[#931B58] text-white hover:bg-[#7f174d] rounded-xl shadow-sm transition-all active:scale-95"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-1.5 px-5 py-2 text-xs font-semibold bg-berry text-white hover:bg-berry-dark rounded-xl shadow-xs transition-all active:scale-95 disabled:opacity-50"
                 >
-                  Save & Onboard Client
+                  {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                  <span>Save & Onboard Client</span>
                 </button>
               </div>
             </form>
@@ -457,23 +482,28 @@ export function GlobalModals() {
             </div>
 
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                const matchedUser = teamMembers.find((m) => m.name === taskForm.assigneeName) || teamMembers[0];
-                addTask({
-                  title: taskForm.title || 'Brand Social Cut',
-                  clientName: taskForm.clientName,
-                  category: taskForm.category,
-                  priority: taskForm.priority,
-                  status: taskForm.status,
-                  dueDate: taskForm.dueDate,
-                  assignee: {
-                    name: matchedUser.name,
-                    avatar: matchedUser.avatar,
-                    role: matchedUser.role,
-                  },
-                });
-                handleClose();
+                setIsSubmitting(true);
+                try {
+                  const matchedUser = teamMembers.find((m) => m.name === taskForm.assigneeName) || teamMembers[0];
+                  await addTask({
+                    title: taskForm.title || 'Brand Social Cut',
+                    clientName: taskForm.clientName,
+                    category: taskForm.category,
+                    priority: taskForm.priority,
+                    status: taskForm.status,
+                    dueDate: taskForm.dueDate,
+                    assignee: {
+                      name: matchedUser.name,
+                      avatar: matchedUser.avatar,
+                      role: matchedUser.role,
+                    },
+                  });
+                  handleClose();
+                } finally {
+                  setIsSubmitting(false);
+                }
               }}
               className="mt-4 space-y-3.5"
             >
@@ -487,7 +517,7 @@ export function GlobalModals() {
                   value={taskForm.title}
                   onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
                   placeholder="e.g. Summer Campaign Teaser Reel 4K"
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -499,11 +529,11 @@ export function GlobalModals() {
                   <select
                     value={taskForm.clientName}
                     onChange={(e) => setTaskForm({ ...taskForm, clientName: e.target.value })}
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     {clients.map((c) => (
-                      <option key={c.id} value={c.company}>
-                        {c.company}
+                      <option key={c.id} value={c.company || c.name}>
+                        {c.company || c.name}
                       </option>
                     ))}
                   </select>
@@ -515,7 +545,7 @@ export function GlobalModals() {
                   <select
                     value={taskForm.category}
                     onChange={(e) => setTaskForm({ ...taskForm, category: e.target.value })}
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     <option value="Video Production">Video Production</option>
                     <option value="Motion Design">Motion Design</option>
@@ -536,7 +566,7 @@ export function GlobalModals() {
                     onChange={(e) =>
                       setTaskForm({ ...taskForm, priority: e.target.value as any })
                     }
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     <option value="high">High</option>
                     <option value="medium">Medium</option>
@@ -550,7 +580,7 @@ export function GlobalModals() {
                   <select
                     value={taskForm.assigneeName}
                     onChange={(e) => setTaskForm({ ...taskForm, assigneeName: e.target.value })}
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     {teamMembers.map((m) => (
                       <option key={m.id} value={m.name}>
@@ -568,7 +598,7 @@ export function GlobalModals() {
                     value={taskForm.dueDate}
                     onChange={(e) => setTaskForm({ ...taskForm, dueDate: e.target.value })}
                     placeholder="e.g. Sep 18, 5:00 PM"
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                   />
                 </div>
               </div>
@@ -583,9 +613,11 @@ export function GlobalModals() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 rounded-xl shadow-sm transition-all active:scale-95"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-1.5 px-5 py-2 text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 rounded-xl shadow-xs transition-all active:scale-95 disabled:opacity-50"
                 >
-                  Create Task
+                  {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                  <span>Create Task</span>
                 </button>
               </div>
             </form>
@@ -615,21 +647,26 @@ export function GlobalModals() {
             </div>
 
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                addTicket({
-                  subject: ticketForm.subject || 'Client Question / Revision',
-                  clientName: ticketForm.clientName,
-                  requester: {
-                    name: ticketForm.requesterName || 'Eleanor Vance',
-                    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-                    email: ticketForm.email || 'client@company.com',
-                  },
-                  priority: ticketForm.priority,
-                  status: ticketForm.status,
-                  lastMessage: ticketForm.lastMessage || 'Revision details attached.',
-                });
-                handleClose();
+                setIsSubmitting(true);
+                try {
+                  await addTicket({
+                    subject: ticketForm.subject || 'Client Question / Revision',
+                    clientName: ticketForm.clientName,
+                    requester: {
+                      name: ticketForm.requesterName || 'Eleanor Vance',
+                      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+                      email: ticketForm.email || 'client@company.com',
+                    },
+                    priority: ticketForm.priority,
+                    status: ticketForm.status,
+                    lastMessage: ticketForm.lastMessage || 'Revision details attached.',
+                  });
+                  handleClose();
+                } finally {
+                  setIsSubmitting(false);
+                }
               }}
               className="mt-4 space-y-3.5"
             >
@@ -643,7 +680,7 @@ export function GlobalModals() {
                   value={ticketForm.subject}
                   onChange={(e) => setTicketForm({ ...ticketForm, subject: e.target.value })}
                   placeholder="e.g. Audio syncing discrepancy on YouTube export"
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -655,11 +692,11 @@ export function GlobalModals() {
                   <select
                     value={ticketForm.clientName}
                     onChange={(e) => setTicketForm({ ...ticketForm, clientName: e.target.value })}
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     {clients.map((c) => (
-                      <option key={c.id} value={c.company}>
-                        {c.company}
+                      <option key={c.id} value={c.company || c.name}>
+                        {c.company || c.name}
                       </option>
                     ))}
                   </select>
@@ -673,7 +710,7 @@ export function GlobalModals() {
                     onChange={(e) =>
                       setTicketForm({ ...ticketForm, priority: e.target.value as any })
                     }
-                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                   >
                     <option value="high">High (Urgent Campaign Release)</option>
                     <option value="medium">Medium</option>
@@ -692,7 +729,7 @@ export function GlobalModals() {
                   value={ticketForm.lastMessage}
                   onChange={(e) => setTicketForm({ ...ticketForm, lastMessage: e.target.value })}
                   placeholder="Describe the revision, bug, or question in detail..."
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
@@ -706,9 +743,156 @@ export function GlobalModals() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 rounded-xl shadow-sm transition-all active:scale-95"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-1.5 px-5 py-2 text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 rounded-xl shadow-xs transition-all active:scale-95 disabled:opacity-50"
                 >
-                  Submit Ticket
+                  {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                  <span>Submit Ticket</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* ======================= ADD ACCOUNT MODAL ======================= */}
+        {activeModal === 'add_account' && (
+          <div>
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-berry/10 text-berry">
+                  <Share2 className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-base">Connect New Ad Account</h3>
+                  <p className="text-xs text-slate-500">Link advertising ID, platform & ad credit</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                try {
+                  await addAccount({
+                    name: accountForm.name || 'Ad Account Campaign',
+                    platform: accountForm.platform,
+                    handle: `@${accountForm.name.toLowerCase().replace(/\s+/g, '')}`,
+                    accountId: accountForm.accountId || `ACT-${Math.floor(10000 + Math.random() * 90000)}`,
+                    clientName: accountForm.clientName,
+                    balance: Number(accountForm.balance) || 5000,
+                    status: 'active',
+                    followers: '50K',
+                    engagement: '4.5%',
+                    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+                    notes: [],
+                  });
+                  handleClose();
+                } finally {
+                  setIsSubmitting(false);
+                }
+              }}
+              className="mt-4 space-y-3.5"
+            >
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  Account Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={accountForm.name}
+                  onChange={(e) => setAccountForm({ ...accountForm, name: e.target.value })}
+                  placeholder="e.g. Aura - Summer Campaign"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Advertising Platform
+                  </label>
+                  <select
+                    value={accountForm.platform}
+                    onChange={(e) => setAccountForm({ ...accountForm, platform: e.target.value as any })}
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
+                  >
+                    <option value="Meta Ads">Meta Ads (Facebook & Instagram)</option>
+                    <option value="Google Ads">Google Ads (Search & YouTube)</option>
+                    <option value="TikTok Ads">TikTok Ads</option>
+                    <option value="LinkedIn Ads">LinkedIn Ads</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Assign to Client
+                  </label>
+                  <select
+                    value={accountForm.clientName}
+                    onChange={(e) => setAccountForm({ ...accountForm, clientName: e.target.value })}
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
+                  >
+                    {clients.map((c) => (
+                      <option key={c.id} value={c.company || c.name}>
+                        {c.company || c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Account ID / Token
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={accountForm.accountId}
+                    onChange={(e) => setAccountForm({ ...accountForm, accountId: e.target.value })}
+                    placeholder="e.g. ACT-84920-META"
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Initial Ad Credit ($ USD)
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    step="100"
+                    value={accountForm.balance}
+                    onChange={(e) => setAccountForm({ ...accountForm, balance: Number(e.target.value) })}
+                    className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-1.5 px-5 py-2 text-xs font-semibold bg-berry text-white hover:bg-berry-dark rounded-xl shadow-xs transition-all active:scale-95 disabled:opacity-50"
+                >
+                  {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                  <span>Save Ad Account</span>
                 </button>
               </div>
             </form>
@@ -738,17 +922,22 @@ export function GlobalModals() {
             </div>
 
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                addTransaction({
-                  invoiceNumber: `PAY-${Date.now().toString().slice(-4)}`,
-                  clientName: 'Digest Media Treasury Payout',
-                  amount: Number(payoutForm.amount) || 5000,
-                  status: 'paid',
-                  paymentMethod: payoutForm.method,
-                  service: payoutForm.note,
-                });
-                handleClose();
+                setIsSubmitting(true);
+                try {
+                  await addTransaction({
+                    invoiceNumber: `PAY-${Date.now().toString().slice(-4)}`,
+                    clientName: 'Digest Media Treasury Payout',
+                    amount: Number(payoutForm.amount) || 5000,
+                    status: 'paid',
+                    paymentMethod: payoutForm.method,
+                    service: payoutForm.note,
+                  });
+                  handleClose();
+                } finally {
+                  setIsSubmitting(false);
+                }
               }}
               className="mt-4 space-y-3.5"
             >
@@ -768,7 +957,7 @@ export function GlobalModals() {
                     onChange={(e) =>
                       setPayoutForm({ ...payoutForm, amount: Number(e.target.value) })
                     }
-                    className="w-full pl-7 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] font-bold text-slate-800"
+                    className="w-full pl-7 pr-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry font-bold text-slate-800"
                   />
                 </div>
               </div>
@@ -780,7 +969,7 @@ export function GlobalModals() {
                 <select
                   value={payoutForm.method}
                   onChange={(e) => setPayoutForm({ ...payoutForm, method: e.target.value })}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58] bg-white"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry bg-white"
                 >
                   <option value="ACH Wire Transfer">ACH Wire Transfer (JPMorgan Chase ****4190)</option>
                   <option value="Stripe Instant Payout">Stripe Instant Payout (1.5% fee)</option>
@@ -797,11 +986,11 @@ export function GlobalModals() {
                   value={payoutForm.note}
                   onChange={(e) => setPayoutForm({ ...payoutForm, note: e.target.value })}
                   placeholder="e.g. Creator payout batch 2026-Q3"
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#931B58]"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-berry"
                 />
               </div>
 
-              <div className="rounded-xl bg-amber-50 p-3 border border-amber-200/60 text-[11px] text-amber-800 flex items-start gap-2">
+              <div className="rounded-2xl bg-amber-50 p-3.5 border border-amber-200/60 text-[11px] text-amber-800 flex items-start gap-2">
                 <AlertCircle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
                 <span>Standard ACH transfers settle in 1-2 business days into your primary registered treasury account.</span>
               </div>
@@ -816,9 +1005,11 @@ export function GlobalModals() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold bg-amber-600 text-white hover:bg-amber-700 rounded-xl shadow-sm transition-all active:scale-95"
+                  disabled={isSubmitting}
+                  className="flex items-center gap-1.5 px-5 py-2 text-xs font-semibold bg-amber-600 text-white hover:bg-amber-700 rounded-xl shadow-xs transition-all active:scale-95 disabled:opacity-50"
                 >
-                  Process Withdrawal
+                  {isSubmitting && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                  <span>Process Withdrawal</span>
                 </button>
               </div>
             </form>

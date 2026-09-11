@@ -18,22 +18,36 @@ import {
 import { useAuth } from '@/lib/auth-context';
 
 export default function SettingsPage() {
-  const { user } = useAuth();
+  const { user, updateProfile, updatePassword } = useAuth();
   const [activeTab, setActiveTab] = useState<'personal' | 'password'>('personal');
   const [isEditing, setIsEditing] = useState(false);
   const [saveToast, setSaveToast] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   // Personal details state
   const [firstName, setFirstName] = useState(user?.name?.split(' ')[0] || 'Samantha');
   const [lastName, setLastName] = useState(user?.name?.split(' ')[1] || 'William');
   const [email, setEmail] = useState(user?.email || 'samantha@digestmedia.co');
-  const [phone, setPhone] = useState('+1 (555) 234-5678');
+  const [phone, setPhone] = useState(user?.phone || '+1 (555) 234-5678');
   const [position, setPosition] = useState(user?.title || 'Account Director');
 
   // Avatar state
   const avatarInputRef = React.useRef<HTMLInputElement>(null);
   const [avatarUrl, setAvatarUrl] = useState(user?.avatar || '');
   const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+
+  // Synchronize state when user changes
+  React.useEffect(() => {
+    if (user) {
+      const parts = (user.name || '').split(' ');
+      setFirstName(parts[0] || '');
+      setLastName(parts.slice(1).join(' ') || '');
+      setEmail(user.email || '');
+      setAvatarUrl(user.avatar || '');
+      if (user.title) setPosition(user.title);
+      if (user.phone) setPhone(user.phone);
+    }
+  }, [user]);
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -52,6 +66,7 @@ export default function SettingsPage() {
       const data = await res.json();
       if (data.publicUrl) {
         setAvatarUrl(data.publicUrl);
+        await updateProfile({ avatar: data.publicUrl });
         setSaveToast('Profile avatar uploaded to Cloudflare R2!');
         setTimeout(() => setSaveToast(''), 3000);
       }
@@ -68,14 +83,25 @@ export default function SettingsPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const handleSavePersonal = (e: React.FormEvent) => {
+  const handleSavePersonal = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsEditing(false);
-    setSaveToast('Personal details updated successfully!');
-    setTimeout(() => setSaveToast(''), 3000);
+    setIsSaving(true);
+    try {
+      const fullName = `${firstName.trim()} ${lastName.trim()}`.trim();
+      await updateProfile({
+        name: fullName,
+        title: position,
+        phone,
+      });
+      setIsEditing(false);
+      setSaveToast('Personal details updated successfully!');
+      setTimeout(() => setSaveToast(''), 3000);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     setPasswordError('');
     if (!currentPassword) {
@@ -91,11 +117,19 @@ export default function SettingsPage() {
       return;
     }
 
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    setSaveToast('Password updated successfully!');
-    setTimeout(() => setSaveToast(''), 3000);
+    setIsSaving(true);
+    try {
+      await updatePassword(newPassword);
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setSaveToast('Password updated successfully!');
+      setTimeout(() => setSaveToast(''), 3000);
+    } catch (err: any) {
+      setPasswordError(err.message || 'Failed to update password');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (

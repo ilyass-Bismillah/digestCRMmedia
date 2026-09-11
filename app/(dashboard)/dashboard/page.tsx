@@ -56,6 +56,7 @@ export default function DashboardPage() {
     clients,
     tasks,
     tickets,
+    accounts,
     transactions,
     toggleTaskCompletion,
     setActiveModal,
@@ -72,7 +73,7 @@ export default function DashboardPage() {
   const activeTasksCount = tasks.filter((t) => !t.completed).length;
   const pendingTicketsCount = tickets.filter((t) => t.status !== 'resolved').length;
   const totalBalance = transactions
-    .filter((t) => t.status === 'paid')
+    .filter((t) => t.status === 'paid' || t.status === 'approved')
     .reduce((acc, curr) => acc + curr.amount, 0);
 
   const kpis = [
@@ -89,7 +90,7 @@ export default function DashboardPage() {
     },
     {
       title: 'Active Accounts',
-      value: '28',
+      value: accounts.length.toString(),
       trend: '+4 connected',
       isPositive: true,
       subtext: 'Meta, Google & TikTok',

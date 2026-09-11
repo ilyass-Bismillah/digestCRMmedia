@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { updateProfileRecord } from '@/lib/services/database';
 
 export type UserRole = 'admin' | 'user';
 
@@ -14,6 +15,7 @@ export interface AuthUser {
   avatar: string;
   title: string;
   department?: string;
+  phone?: string;
 }
 
 export const DEMO_USERS: Record<UserRole, AuthUser> = {
@@ -25,6 +27,7 @@ export const DEMO_USERS: Record<UserRole, AuthUser> = {
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
     title: 'Creative Director & Agency Admin',
     department: 'Executive Operations',
+    phone: '+1 (555) 234-5678',
   },
   user: {
     id: 'usr-creator-2',
@@ -34,6 +37,7 @@ export const DEMO_USERS: Record<UserRole, AuthUser> = {
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80',
     title: 'Content Creator & Senior Editor',
     department: 'Video Production',
+    phone: '+1 (555) 876-5432',
   },
 };
 
@@ -46,6 +50,8 @@ interface AuthContextType {
   logout: () => Promise<void>;
   switchRole: (newRole: UserRole) => void;
   resetPassword: (email: string) => Promise<boolean>;
+  updatePassword: (password: string) => Promise<boolean>;
+  updateProfile: (updates: { name?: string; avatar?: string; title?: string; phone?: string }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -82,6 +88,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               avatar: profile?.avatar_url || session.user.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
               title: profile?.job_title || 'Digest Media Member',
               department: 'Media Operations',
+              phone: profile?.phone || '',
             };
             setUser(authed);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(authed));
@@ -123,6 +130,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             role: (session.user.user_metadata?.role as UserRole) || 'user',
             avatar: session.user.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
             title: 'Digest Media Member',
+            department: 'Media Operations',
           };
           setUser(authed);
           localStorage.setItem(STORAGE_KEY, JSON.stringify(authed));
@@ -145,34 +153,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const supabase = createClient();
 
     if (supabase && password && !role) {
-      try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-        if (error) {
-          console.error('Supabase signin error:', error);
-          setIsLoading(false);
-          return false;
-        }
+      if (error) {
+        setIsLoading(false);
+        throw new Error(error.message);
+      }
 
-        if (data.user) {
-          const authed: AuthUser = {
-            id: data.user.id,
-            name: data.user.user_metadata?.full_name || email.split('@')[0],
-            email: data.user.email || email,
-            role: (data.user.user_metadata?.role as UserRole) || 'user',
-            avatar: data.user.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
-            title: 'Digest Media Member',
-          };
-          setUser(authed);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(authed));
-          setIsLoading(false);
-          return true;
-        }
-      } catch (err) {
-        console.warn('Supabase signin attempt failed, falling back to demo session:', err);
+      if (data.user) {
+        const authed: AuthUser = {
+          id: data.user.id,
+          name: data.user.user_metadata?.full_name || email.split('@')[0],
+          email: data.user.email || email,
+          role: (data.user.user_metadata?.role as UserRole) || 'user',
+          avatar: data.user.user_metadata?.avatar_url || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80',
+          title: 'Digest Media Member',
+        };
+        setUser(authed);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(authed));
+        setIsLoading(false);
+        return true;
       }
     }
 
@@ -203,43 +206,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const supabase = createClient();
 
     if (supabase && password) {
-      try {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              full_name: name,
-              role,
-            },
-          },
-        });
-
-        if (error) {
-          console.error('Supabase signup error:', error);
-          setIsLoading(false);
-          return false;
-        }
-
-        if (data.user) {
-          const newUser: AuthUser = {
-            id: data.user.id,
-            name,
-            email,
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: name,
             role,
-            avatar: role === 'admin'
-              ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80'
-              : 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80',
-            title: role === 'admin' ? 'Agency Manager' : 'Creative Contributor',
-            department: 'Digital Media Studio',
-          };
-          setUser(newUser);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
-          setIsLoading(false);
-          return true;
-        }
-      } catch (err) {
-        console.warn('Supabase signup error, falling back:', err);
+          },
+        },
+      });
+
+      if (error) {
+        setIsLoading(false);
+        throw new Error(error.message);
+      }
+
+      if (data.user) {
+        const newUser: AuthUser = {
+          id: data.user.id,
+          name,
+          email,
+          role,
+          avatar: role === 'admin'
+            ? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80'
+            : 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80',
+          title: role === 'admin' ? 'Agency Manager' : 'Creative Contributor',
+          department: 'Digital Media Studio',
+        };
+        setUser(newUser);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newUser));
+        setIsLoading(false);
+        return true;
       }
     }
 
@@ -286,16 +284,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const resetPassword = async (email: string): Promise<boolean> => {
     const supabase = createClient();
     if (supabase) {
-      try {
-        await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/reset-password`,
-        });
-      } catch (e) {
-        console.warn('Supabase resetPassword error:', e);
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) {
+        throw new Error(error.message);
       }
     }
     await new Promise((res) => setTimeout(res, 400));
     return true;
+  };
+
+  const updatePassword = async (password: string): Promise<boolean> => {
+    const supabase = createClient();
+    if (supabase) {
+      const { error } = await supabase.auth.updateUser({ password });
+      if (error) {
+        throw new Error(error.message);
+      }
+      return true;
+    }
+    await new Promise((res) => setTimeout(res, 400));
+    return true;
+  };
+
+  const updateProfile = async (updates: { name?: string; avatar?: string; title?: string; phone?: string }) => {
+    if (!user) return;
+    const updatedUser: AuthUser = {
+      ...user,
+      ...(updates.name ? { name: updates.name } : {}),
+      ...(updates.avatar ? { avatar: updates.avatar } : {}),
+      ...(updates.title ? { title: updates.title } : {}),
+      ...(updates.phone ? { phone: updates.phone } : {}),
+    };
+    setUser(updatedUser);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUser));
+
+    if (user.id && !user.id.startsWith('usr-')) {
+      await updateProfileRecord(user.id, {
+        full_name: updates.name,
+        avatar_url: updates.avatar,
+        job_title: updates.title,
+        phone: updates.phone,
+      });
+    }
   };
 
   return (
@@ -309,6 +341,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         logout,
         switchRole,
         resetPassword,
+        updatePassword,
+        updateProfile,
       }}
     >
       {children}

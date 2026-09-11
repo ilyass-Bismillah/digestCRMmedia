@@ -22,80 +22,35 @@ import {
 import { FaInstagram, FaYoutube, FaLinkedin } from 'react-icons/fa';
 import { useDashboard } from '@/lib/dashboard-context';
 
-interface AdAccount {
-  id: string;
-  name: string;
-  clientName: string;
-  platform: 'Google Ads' | 'Meta Ads' | 'TikTok Ads' | 'LinkedIn Ads';
-  accountId: string;
-  balance: number;
-  status: 'active' | 'paused';
-  notes: { id: string; author: string; time: string; text: string }[];
-}
-
-const initialAdAccounts: AdAccount[] = [
-  {
-    id: 'acc-1',
-    name: 'Aura - Summer Campaign',
-    clientName: 'Aura Cosmetics Global',
-    platform: 'Meta Ads',
-    accountId: 'ACT-98234-META',
-    balance: 14500.0,
-    status: 'active',
-    notes: [
-      { id: 'n-1', author: 'Samantha William', time: 'Yesterday 14:20', text: 'Increased daily cap by $500 for European influencer creative tests.' },
-      { id: 'n-2', author: 'Alex Rivera', time: 'Sep 08, 10:15', text: 'Connected new TikTok Spark ad token.' }
-    ]
-  },
-  {
-    id: 'acc-2',
-    name: 'Nexus - B2B Conversions',
-    clientName: 'Nexus Robotics AI',
-    platform: 'Google Ads',
-    accountId: 'ACT-44129-GGL',
-    balance: 8200.0,
-    status: 'active',
-    notes: [
-      { id: 'n-3', author: 'Samantha William', time: '2 days ago', text: 'Search intent campaign keywords audited.' }
-    ]
-  },
-  {
-    id: 'acc-3',
-    name: 'Veloce - Cinema Reels',
-    clientName: 'Veloce Cinema Productions',
-    platform: 'TikTok Ads',
-    accountId: 'ACT-66311-TT',
-    balance: 3800.0,
-    status: 'active',
-    notes: []
-  },
-  {
-    id: 'acc-4',
-    name: 'Seraphine - Fall Launch',
-    clientName: 'Seraphine Jewelry Paris',
-    platform: 'Meta Ads',
-    accountId: 'ACT-11928-META',
-    balance: 12000.0,
-    status: 'paused',
-    notes: []
-  },
-];
+import { SocialAccount } from '@/lib/mock-data';
 
 export default function AccountsPage() {
-  const { clients } = useDashboard();
-  const [accountsList, setAccountsList] = useState<AdAccount[]>(initialAdAccounts);
+  const {
+    clients,
+    accounts,
+    addAccount,
+    updateAccount,
+    deleteAccount,
+    addTransaction,
+  } = useDashboard();
+
   const [searchTerm, setSearchTerm] = useState('');
   const [platformFilter, setPlatformFilter] = useState<string>('all');
   const [showEmptyStatePreview, setShowEmptyStatePreview] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Modals state
   const [isAddAccountModalOpen, setIsAddAccountModalOpen] = useState(false);
-  const [topupAccount, setTopupAccount] = useState<AdAccount | null>(null);
-  const [notesAccount, setNotesAccount] = useState<AdAccount | null>(null);
+  const [topupAccount, setTopupAccount] = useState<SocialAccount | null>(null);
+  const [notesAccount, setNotesAccount] = useState<SocialAccount | null>(null);
 
   // Topup form state
   const [topupAmount, setTopupAmount] = useState('2500.00');
   const [topupMethod, setTopupMethod] = useState('Bank Transfer');
+  const [isUploadingReceipt, setIsUploadingReceipt] = useState(false);
+  const [uploadedReceiptUrl, setUploadedReceiptUrl] = useState<string | null>(null);
+  const [uploadedReceiptName, setUploadedReceiptName] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   // Add Note state
   const [newNoteText, setNewNoteText] = useState('');
@@ -103,78 +58,132 @@ export default function AccountsPage() {
   // Add account form state
   const [newAccName, setNewAccName] = useState('');
   const [newAccPlatform, setNewAccPlatform] = useState<'Google Ads' | 'Meta Ads' | 'TikTok Ads' | 'LinkedIn Ads'>('Meta Ads');
-  const [newAccClient, setNewAccClient] = useState(clients[0]?.name || 'Aura Cosmetics Global');
+  const [newAccClient, setNewAccClient] = useState(clients[0]?.company || clients[0]?.name || 'Aura Cosmetics Global');
   const [newAccId, setNewAccId] = useState('');
   const [newAccBalance, setNewAccBalance] = useState(5000);
 
-  const filteredAccounts = accountsList.filter((acc) => {
+  const filteredAccounts = accounts.filter((acc) => {
+    const accName = acc.name || acc.clientName;
+    const accId = acc.accountId || acc.id;
     const matchesSearch =
-      acc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      accName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       acc.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      acc.accountId.toLowerCase().includes(searchTerm.toLowerCase());
+      accId.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPlatform =
       platformFilter === 'all' || acc.platform.toLowerCase().includes(platformFilter.toLowerCase());
     return matchesSearch && matchesPlatform;
   });
 
-  const handleCreateAccount = (e: React.FormEvent) => {
+  const handleCreateAccount = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newAccName || !newAccId) return;
 
-    const newAcc: AdAccount = {
-      id: `acc-${Date.now()}`,
-      name: newAccName,
-      clientName: newAccClient,
-      platform: newAccPlatform,
-      accountId: newAccId,
-      balance: Number(newAccBalance) || 0,
-      status: 'active',
-      notes: [],
-    };
+    setIsSubmitting(true);
+    try {
+      await addAccount({
+        name: newAccName,
+        clientName: newAccClient,
+        platform: newAccPlatform,
+        accountId: newAccId,
+        balance: Number(newAccBalance) || 0,
+        status: 'active',
+        handle: `@${newAccName.toLowerCase().replace(/\s+/g, '')}`,
+        followers: '10K',
+        engagement: '4.0%',
+        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+        notes: [],
+      });
 
-    setAccountsList([newAcc, ...accountsList]);
-    setIsAddAccountModalOpen(false);
-    setNewAccName('');
-    setNewAccId('');
+      setIsAddAccountModalOpen(false);
+      setNewAccName('');
+      setNewAccId('');
+      setNewAccBalance(5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleAddTopup = (e: React.FormEvent) => {
+  const handleReceiptUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingReceipt(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('folder', 'receipts');
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.publicUrl) {
+        setUploadedReceiptUrl(data.publicUrl);
+        setUploadedReceiptName(file.name);
+      }
+    } catch (err) {
+      console.warn('Receipt upload failed:', err);
+      setUploadedReceiptName(file.name);
+    } finally {
+      setIsUploadingReceipt(false);
+    }
+  };
+
+  const handleAddTopup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!topupAccount) return;
 
-    setAccountsList(
-      accountsList.map((acc) =>
-        acc.id === topupAccount.id
-          ? { ...acc, balance: acc.balance + (parseFloat(topupAmount) || 0) }
-          : acc
-      )
-    );
-    setTopupAccount(null);
+    setIsSubmitting(true);
+    try {
+      const addedAmount = parseFloat(topupAmount) || 0;
+      await updateAccount(topupAccount.id, {
+        balance: (topupAccount.balance || 0) + addedAmount,
+      });
+
+      await addTransaction({
+        invoiceNumber: `TXN-${Math.floor(10000 + Math.random() * 90000)}-2026`,
+        clientName: topupAccount.clientName,
+        amount: addedAmount,
+        fee: addedAmount * 0.005,
+        paymentMethod: topupMethod,
+        status: 'approved',
+        service: `Ad Spend Topup (${topupAccount.name || topupAccount.platform})`,
+        slipUrl: uploadedReceiptUrl || undefined,
+      });
+
+      setTopupAccount(null);
+      setUploadedReceiptUrl(null);
+      setUploadedReceiptName(null);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleAddNote = (e: React.FormEvent) => {
+  const handleAddNote = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!notesAccount || !newNoteText.trim()) return;
 
-    const newNote = {
-      id: `note-${Date.now()}`,
-      author: 'Samantha William',
-      time: 'Just now',
-      text: newNoteText.trim(),
-    };
+    setIsSubmitting(true);
+    try {
+      const newNote = {
+        id: `note-${Date.now()}`,
+        author: 'Samantha William',
+        time: 'Just now',
+        text: newNoteText.trim(),
+      };
 
-    setAccountsList(
-      accountsList.map((acc) =>
-        acc.id === notesAccount.id
-          ? { ...acc, notes: [newNote, ...acc.notes] }
-          : acc
-      )
-    );
-    setNotesAccount({
-      ...notesAccount,
-      notes: [newNote, ...notesAccount.notes],
-    });
-    setNewNoteText('');
+      const updatedNotes = [newNote, ...(notesAccount.notes || [])];
+      await updateAccount(notesAccount.id, { notes: updatedNotes });
+
+      setNotesAccount({
+        ...notesAccount,
+        notes: updatedNotes,
+      });
+      setNewNoteText('');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -297,7 +306,7 @@ export default function AccountsPage() {
                       {acc.accountId}
                     </td>
                     <td className="py-3.5 px-4 font-bold text-slate-900">
-                      ${acc.balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      ${(acc.balance ?? 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                     <td className="py-3.5 px-4">
                       {acc.status === 'active' ? (
@@ -325,7 +334,7 @@ export default function AccountsPage() {
                           className="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-medium text-[11px] transition-colors flex items-center gap-1"
                         >
                           <MessageSquare className="h-3 w-3" />
-                          <span>Notes ({acc.notes.length})</span>
+                          <span>Notes ({acc.notes?.length ?? 0})</span>
                         </button>
                       </div>
                     </td>
@@ -503,10 +512,38 @@ export default function AccountsPage() {
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Payment Receipt / Slip (Optional)
                 </label>
-                <div className="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-berry/50 transition-colors cursor-pointer bg-slate-50/50">
-                  <Upload className="h-6 w-6 text-slate-400 mx-auto" />
-                  <p className="text-xs font-semibold text-slate-700 mt-1">Upload wire receipt</p>
-                  <p className="text-[10px] text-slate-400">PDF, PNG or JPG up to 10MB</p>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*,.pdf"
+                  onChange={handleReceiptUpload}
+                  className="hidden"
+                />
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`border-2 border-dashed rounded-2xl p-4 text-center transition-colors cursor-pointer ${
+                    uploadedReceiptName
+                      ? 'border-emerald-300 bg-emerald-50/50'
+                      : 'border-slate-200 hover:border-berry/50 bg-slate-50/50'
+                  }`}
+                >
+                  {isUploadingReceipt ? (
+                    <div className="flex flex-col items-center justify-center py-1">
+                      <RefreshCw className="h-6 w-6 text-berry animate-spin" />
+                      <p className="text-xs font-medium text-slate-600 mt-1">Uploading to Cloudflare R2...</p>
+                    </div>
+                  ) : uploadedReceiptName ? (
+                    <div className="flex items-center justify-center gap-2 py-1">
+                      <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                      <span className="text-xs font-semibold text-emerald-800 truncate max-w-xs">{uploadedReceiptName}</span>
+                    </div>
+                  ) : (
+                    <>
+                      <Upload className="h-6 w-6 text-slate-400 mx-auto" />
+                      <p className="text-xs font-semibold text-slate-700 mt-1">Upload wire receipt to Cloudflare R2</p>
+                      <p className="text-[10px] text-slate-400">PDF, PNG or JPG up to 10MB</p>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -520,9 +557,10 @@ export default function AccountsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs"
+                  disabled={isSubmitting}
+                  className="px-5 py-2 text-xs font-semibold text-white bg-berry hover:bg-[#A01E6F] rounded-xl shadow-xs disabled:opacity-50"
                 >
-                  Submit Topup
+                  {isSubmitting ? 'Saving...' : 'Submit Topup'}
                 </button>
               </div>
             </form>
@@ -550,10 +588,10 @@ export default function AccountsPage() {
 
             {/* Notes List */}
             <div className="mt-4 max-h-60 overflow-y-auto space-y-3">
-              {notesAccount.notes.length === 0 ? (
+              {(notesAccount.notes || []).length === 0 ? (
                 <p className="text-xs text-slate-400 text-center py-6">No notes added to this account yet.</p>
               ) : (
-                notesAccount.notes.map((n) => (
+                (notesAccount.notes || []).map((n) => (
                   <div key={n.id} className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
                     <div className="flex items-center justify-between font-semibold text-slate-800 mb-1">
                       <span>{n.author}</span>

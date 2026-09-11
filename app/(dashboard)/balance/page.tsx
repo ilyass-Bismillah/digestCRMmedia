@@ -21,71 +21,24 @@ import {
 } from 'lucide-react';
 import { useDashboard } from '@/lib/dashboard-context';
 
-interface PaymentRecord {
-  id: string;
-  transactionId: string;
-  clientName: string;
-  date: string;
-  amount: number;
-  method: 'Bank Transfer' | 'Credit Card' | 'Wire Transfer' | 'PayPal';
-  status: 'approved' | 'pending' | 'rejected';
-  fee: number;
-  slipUrl?: string;
-}
-
-const initialPaymentRecords: PaymentRecord[] = [
-  {
-    id: 'pay-1',
-    transactionId: 'TXN-98421-2024',
-    clientName: 'Aura Cosmetics Global',
-    date: 'Apr 02, 2024 - 11:30',
-    amount: 12500.0,
-    fee: 45.0,
-    method: 'Bank Transfer',
-    status: 'approved',
-  },
-  {
-    id: 'pay-2',
-    transactionId: 'TXN-77312-2024',
-    clientName: 'Nexus Robotics AI',
-    date: 'Apr 01, 2024 - 15:45',
-    amount: 8000.0,
-    fee: 32.0,
-    method: 'Wire Transfer',
-    status: 'approved',
-  },
-  {
-    id: 'pay-3',
-    transactionId: 'TXN-55209-2024',
-    clientName: 'Veloce Cinema Productions',
-    date: 'Mar 29, 2024 - 09:12',
-    amount: 3500.0,
-    fee: 14.5,
-    method: 'Credit Card',
-    status: 'pending',
-  },
-  {
-    id: 'pay-4',
-    transactionId: 'TXN-33108-2024',
-    clientName: 'Seraphine Jewelry Paris',
-    date: 'Mar 25, 2024 - 18:20',
-    amount: 6000.0,
-    fee: 25.0,
-    method: 'PayPal',
-    status: 'rejected',
-  },
-];
+import { Transaction } from '@/lib/mock-data';
 
 export default function BalancePage() {
+  const {
+    transactions,
+    addTransaction,
+    updateTransactionStatus,
+  } = useDashboard();
+
   const [uiMode, setUiMode] = useState<'client' | 'admin'>('client');
-  const [payments, setPayments] = useState<PaymentRecord[]>(initialPaymentRecords);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'approved' | 'pending' | 'rejected'>('all');
   const [showEmptyPreview, setShowEmptyPreview] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Modals
   const [isAddPaymentModalOpen, setIsAddPaymentModalOpen] = useState(false);
-  const [selectedPaymentDetails, setSelectedPaymentDetails] = useState<PaymentRecord | null>(null);
+  const [selectedPaymentDetails, setSelectedPaymentDetails] = useState<Transaction | null>(null);
   const [downloadToast, setDownloadToast] = useState('');
 
   // Add Payment form state (Client UI)
@@ -111,51 +64,68 @@ export default function BalancePage() {
         body: formData,
       });
       const data = await res.json();
-      setUploadedReceiptUrl(data.publicUrl);
-      setHasReceiptUploaded(true);
+      if (data.publicUrl) {
+        setUploadedReceiptUrl(data.publicUrl);
+        setHasReceiptUploaded(true);
+      }
     } catch (err) {
-      console.warn('Receipt upload failed, simulated success:', err);
+      console.warn('Receipt upload failed:', err);
       setHasReceiptUploaded(true);
     } finally {
       setIsUploadingReceipt(false);
     }
   };
 
-  const filteredPayments = payments.filter((p) => {
+  const filteredPayments = transactions.filter((p) => {
+    const txnId = p.invoiceNumber || p.id;
     const matchesSearch =
-      p.transactionId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      txnId.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.clientName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || p.status === statusFilter;
+    
+    let matchesStatus = true;
+    if (statusFilter === 'approved') {
+      matchesStatus = p.status === 'approved' || p.status === 'paid';
+    } else if (statusFilter === 'pending') {
+      matchesStatus = p.status === 'pending';
+    } else if (statusFilter === 'rejected') {
+      matchesStatus = p.status === 'rejected' || p.status === 'overdue';
+    }
+
     return matchesSearch && matchesStatus;
   });
 
-  const handleCreatePayment = (e: React.FormEvent) => {
+  const handleCreatePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsedAmount = parseFloat(paymentAmount) || 500;
-    const newRecord: PaymentRecord = {
-      id: `pay-${Date.now()}`,
-      transactionId: `TXN-${Math.floor(10000 + Math.random() * 90000)}-2024`,
-      clientName: 'Samantha William (My Account)',
-      date: 'Just now',
-      amount: parsedAmount,
-      fee: parsedAmount * 0.005,
-      method: selectedMethod,
-      status: 'pending',
-    };
+    setIsSubmitting(true);
+    try {
+      await addTransaction({
+        invoiceNumber: `TXN-${Math.floor(10000 + Math.random() * 90000)}-2026`,
+        clientName: 'Samantha William (My Account)',
+        amount: parsedAmount,
+        fee: parsedAmount * 0.005,
+        paymentMethod: selectedMethod,
+        status: 'pending',
+        service: 'Ad Spend Balance Deposit',
+        slipUrl: uploadedReceiptUrl || undefined,
+      });
 
-    setPayments([newRecord, ...payments]);
-    setIsAddPaymentModalOpen(false);
-    setPaymentAmount('500.00');
-    setHasReceiptUploaded(false);
+      setIsAddPaymentModalOpen(false);
+      setPaymentAmount('500.00');
+      setHasReceiptUploaded(false);
+      setUploadedReceiptUrl(null);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleApprovePayment = (id: string) => {
-    setPayments(payments.map((p) => (p.id === id ? { ...p, status: 'approved' } : p)));
+  const handleApprovePayment = async (id: string) => {
+    await updateTransactionStatus(id, 'approved');
     setSelectedPaymentDetails(null);
   };
 
-  const handleRejectPayment = (id: string) => {
-    setPayments(payments.map((p) => (p.id === id ? { ...p, status: 'rejected' } : p)));
+  const handleRejectPayment = async (id: string) => {
+    await updateTransactionStatus(id, 'rejected');
     setSelectedPaymentDetails(null);
   };
 
@@ -314,7 +284,7 @@ export default function BalancePage() {
                 {filteredPayments.map((p) => (
                   <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
                     <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
-                      {p.transactionId}
+                      {p.invoiceNumber || p.id}
                     </td>
                     {uiMode === 'admin' && (
                       <td className="py-3.5 px-4 font-semibold text-slate-800">
@@ -328,10 +298,10 @@ export default function BalancePage() {
                       ${p.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                     <td className="py-3.5 px-4 text-slate-600 font-medium">
-                      {p.method}
+                      {p.paymentMethod}
                     </td>
                     <td className="py-3.5 px-4">
-                      {p.status === 'approved' ? (
+                      {p.status === 'approved' || p.status === 'paid' ? (
                         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                           <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Approved
                         </span>
@@ -357,7 +327,7 @@ export default function BalancePage() {
                       ) : (
                         <button
                           type="button"
-                          onClick={() => handleDownloadInvoice(p.transactionId)}
+                          onClick={() => handleDownloadInvoice(p.invoiceNumber || p.id)}
                           className="p-1.5 text-slate-400 hover:text-berry rounded-lg hover:bg-slate-100 transition-colors"
                           title="Download Receipt"
                         >
@@ -494,7 +464,7 @@ export default function BalancePage() {
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div>
                 <h3 className="text-base font-bold text-slate-900">Payment Details</h3>
-                <p className="text-xs text-slate-500">{selectedPaymentDetails.transactionId}</p>
+                <p className="text-xs text-slate-500">{selectedPaymentDetails.invoiceNumber || selectedPaymentDetails.id}</p>
               </div>
               <button
                 type="button"
@@ -522,18 +492,34 @@ export default function BalancePage() {
               </div>
               <div className="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
                 <span className="text-slate-500">Processing Fee</span>
-                <span className="font-medium text-slate-600">${selectedPaymentDetails.fee.toFixed(2)}</span>
+                <span className="font-medium text-slate-600">
+                  ${(selectedPaymentDetails.fee ?? (selectedPaymentDetails.amount * 0.005)).toFixed(2)}
+                </span>
               </div>
               <div className="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
                 <span className="text-slate-500">Net Credit</span>
                 <span className="font-bold text-emerald-700">
-                  ${(selectedPaymentDetails.amount - selectedPaymentDetails.fee).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  ${(selectedPaymentDetails.amount - (selectedPaymentDetails.fee ?? (selectedPaymentDetails.amount * 0.005))).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </span>
               </div>
               <div className="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
                 <span className="text-slate-500">Payment Method</span>
-                <span className="font-medium text-slate-800">{selectedPaymentDetails.method}</span>
+                <span className="font-medium text-slate-800">{selectedPaymentDetails.paymentMethod}</span>
               </div>
+              {selectedPaymentDetails.slipUrl && (
+                <div className="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
+                  <span className="text-slate-500">Receipt Attachment</span>
+                  <a
+                    href={selectedPaymentDetails.slipUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-semibold text-berry hover:underline flex items-center gap-1"
+                  >
+                    <FileText className="h-3.5 w-3.5" />
+                    <span>View Slip (Cloudflare R2)</span>
+                  </a>
+                </div>
+              )}
             </div>
 
             {/* Admin Action Buttons */}

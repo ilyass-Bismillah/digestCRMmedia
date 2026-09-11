@@ -62,14 +62,18 @@ export interface Ticket {
 
 export interface SocialAccount {
   id: string;
-  platform: 'instagram' | 'tiktok' | 'youtube' | 'linkedin' | 'facebook' | 'web';
+  name?: string;
+  platform: 'instagram' | 'tiktok' | 'youtube' | 'linkedin' | 'facebook' | 'web' | 'Google Ads' | 'Meta Ads' | 'TikTok Ads' | 'LinkedIn Ads';
   handle: string;
+  accountId?: string;
   clientName: string;
-  followers: string;
-  engagement: string;
-  status: 'connected' | 'action_required' | 'syncing';
+  followers?: string;
+  engagement?: string;
+  balance?: number;
+  status: 'connected' | 'action_required' | 'syncing' | 'active' | 'paused';
   lastSync: string;
   avatar: string;
+  notes?: { id: string; author: string; time: string; text: string }[];
 }
 
 export interface Transaction {
@@ -78,9 +82,11 @@ export interface Transaction {
   clientName: string;
   amount: number;
   date: string;
-  status: 'paid' | 'pending' | 'overdue';
+  status: 'paid' | 'pending' | 'overdue' | 'approved' | 'rejected';
   paymentMethod: string;
   service: string;
+  fee?: number;
+  slipUrl?: string;
 }
 
 export interface TeamMember {
@@ -385,122 +391,141 @@ export const initialTickets: Ticket[] = [
 export const initialAccounts: SocialAccount[] = [
   {
     id: 'acc-1',
-    platform: 'instagram',
+    name: 'Aura - Summer Campaign',
+    platform: 'Meta Ads',
     handle: '@auracosmetics_official',
+    accountId: 'ACT-98234-META',
     clientName: 'Aura Cosmetics Global',
+    balance: 14500.0,
     followers: '482.4K',
     engagement: '4.8%',
-    status: 'connected',
+    status: 'active',
     lastSync: '10 mins ago',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+    notes: [
+      { id: 'n-1', author: 'Samantha William', time: 'Yesterday 14:20', text: 'Increased daily cap by $500 for European influencer creative tests.' },
+      { id: 'n-2', author: 'Alex Rivera', time: 'Sep 08, 10:15', text: 'Connected new TikTok Spark ad token.' },
+    ],
   },
   {
     id: 'acc-2',
-    platform: 'tiktok',
-    handle: '@auraglow_beauty',
-    clientName: 'Aura Cosmetics Global',
-    followers: '820.1K',
-    engagement: '7.2%',
-    status: 'connected',
-    lastSync: '25 mins ago',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+    name: 'Nexus - B2B Conversions',
+    platform: 'Google Ads',
+    handle: 'Nexus Robotics AI Lab',
+    accountId: 'ACT-44129-GGL',
+    clientName: 'Nexus Robotics AI',
+    balance: 8200.0,
+    followers: '194.0K',
+    engagement: '5.1%',
+    status: 'active',
+    lastSync: '1 hour ago',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+    notes: [
+      { id: 'n-3', author: 'Samantha William', time: '2 days ago', text: 'Search intent campaign keywords audited.' },
+    ],
   },
   {
     id: 'acc-3',
-    platform: 'youtube',
-    handle: 'Nexus Robotics AI Lab',
-    clientName: 'Nexus Robotics AI',
-    followers: '194.0K',
-    engagement: '5.1%',
-    status: 'connected',
-    lastSync: '1 hour ago',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+    name: 'Veloce - Cinema Reels',
+    platform: 'TikTok Ads',
+    handle: '@veloce_cinema',
+    accountId: 'ACT-66311-TT',
+    clientName: 'Veloce Cinema Productions',
+    balance: 3800.0,
+    followers: '310.5K',
+    engagement: '3.9%',
+    status: 'active',
+    lastSync: '25 mins ago',
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80',
+    notes: [],
   },
   {
     id: 'acc-4',
-    platform: 'tiktok',
-    handle: '@nexus_ai_demo',
-    clientName: 'Nexus Robotics AI',
-    followers: '310.5K',
-    engagement: '3.9%',
-    status: 'action_required',
+    name: 'Seraphine - Fall Launch',
+    platform: 'Meta Ads',
+    handle: '@seraphine_paris',
+    accountId: 'ACT-11928-META',
+    clientName: 'Seraphine Jewelry Paris',
+    balance: 12000.0,
+    followers: '625.8K',
+    engagement: '6.4%',
+    status: 'paused',
     lastSync: '3 days ago',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
+    notes: [],
   },
   {
     id: 'acc-5',
-    platform: 'instagram',
-    handle: '@lumierehotels',
-    clientName: 'Lumière Hospitality Group',
-    followers: '625.8K',
-    engagement: '6.4%',
-    status: 'connected',
-    lastSync: '15 mins ago',
-    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80',
-  },
-  {
-    id: 'acc-6',
-    platform: 'linkedin',
+    name: 'Apex - Prime Growth',
+    platform: 'LinkedIn Ads',
     handle: 'Apex Prime Capital Management',
+    accountId: 'ACT-55012-LNK',
     clientName: 'Apex Prime Capital',
+    balance: 9500.0,
     followers: '88.2K',
     engagement: '2.8%',
-    status: 'connected',
+    status: 'active',
     lastSync: '4 hours ago',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80',
+    notes: [],
   },
 ];
 
 export const initialTransactions: Transaction[] = [
   {
     id: 'tx-1001',
-    invoiceNumber: 'INV-2026-0901',
-    clientName: 'Nexus Robotics AI',
-    amount: 12000,
-    date: 'Sep 01, 2026',
-    status: 'paid',
-    paymentMethod: 'ACH Wire Transfer',
-    service: 'Monthly Media Retainer & AI Motion Package',
+    invoiceNumber: 'TXN-98421-2024',
+    clientName: 'Aura Cosmetics Global',
+    amount: 12500,
+    fee: 45.0,
+    date: 'Apr 02, 2024 - 11:30',
+    status: 'approved',
+    paymentMethod: 'Bank Transfer',
+    service: 'Monthly Ad Spend Retainer & Video Production',
   },
   {
     id: 'tx-1002',
-    invoiceNumber: 'INV-2026-0902',
-    clientName: 'Aura Cosmetics Global',
-    amount: 8500,
-    date: 'Sep 01, 2026',
-    status: 'paid',
-    paymentMethod: 'Stripe Corporate Card',
-    service: 'Full Editorial & Reels Production',
+    invoiceNumber: 'TXN-77312-2024',
+    clientName: 'Nexus Robotics AI',
+    amount: 8000,
+    fee: 32.0,
+    date: 'Apr 01, 2024 - 15:45',
+    status: 'approved',
+    paymentMethod: 'Wire Transfer',
+    service: 'B2B Search Marketing Campaign',
   },
   {
     id: 'tx-1003',
-    invoiceNumber: 'INV-2026-0903',
-    clientName: 'Lumière Hospitality Group',
-    amount: 9400,
-    date: 'Sep 03, 2026',
+    invoiceNumber: 'TXN-55209-2024',
+    clientName: 'Veloce Cinema Productions',
+    amount: 3500,
+    fee: 14.5,
+    date: 'Mar 29, 2024 - 09:12',
     status: 'pending',
-    paymentMethod: 'SEPA International Transfer',
-    service: 'Content Creation & Influencer Coordination',
+    paymentMethod: 'Credit Card',
+    service: 'Short-Form Video Production & TikTok Boost',
   },
   {
     id: 'tx-1004',
-    invoiceNumber: 'INV-2026-0814',
+    invoiceNumber: 'TXN-33108-2024',
+    clientName: 'Seraphine Jewelry Paris',
+    amount: 6000,
+    fee: 25.0,
+    date: 'Mar 25, 2024 - 18:20',
+    status: 'rejected',
+    paymentMethod: 'PayPal',
+    service: 'Fall Launch Influencer Creative Budget',
+  },
+  {
+    id: 'tx-1005',
+    invoiceNumber: 'INV-2026-0901',
     clientName: 'Apex Prime Capital',
     amount: 6500,
+    fee: 28.0,
     date: 'Aug 28, 2026',
     status: 'paid',
     paymentMethod: 'Wire Transfer',
     service: 'Financial Digest & Motion Graphics',
-  },
-  {
-    id: 'tx-1005',
-    invoiceNumber: 'INV-2026-0809',
-    clientName: 'Veloce Cinema Productions',
-    amount: 3200,
-    date: 'Aug 15, 2026',
-    status: 'overdue',
-    paymentMethod: 'Credit Card',
-    service: 'Trial Month Social Sound & Short Edits',
   },
 ];
 
